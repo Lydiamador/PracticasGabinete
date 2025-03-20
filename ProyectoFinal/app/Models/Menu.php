@@ -16,6 +16,9 @@ class Menu extends Model
     protected $fillable = [
         'fecha',
         'descripcion',
-        'precio'
+        'precio',
+        'imagen1',
+        'imagen2',
+        'imagen3'
     ];
 }

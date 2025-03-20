@@ -67,3 +67,4 @@ Route::middleware('auth')->group(function () {
 
 // Ruta pública para ver el menú del día
 Route::get('/menu-del-dia', [MenuController::class, 'menuDelDia'])->name('menu.dia');
+Route::get('/menu/{date}', [MenuController::class, 'showMenuByDate'])->name('menu.date');

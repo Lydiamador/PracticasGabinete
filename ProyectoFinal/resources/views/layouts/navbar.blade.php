@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <!-- Logo/Nombre de la Aplicación -->

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menu;
+use App\Models\Producto;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class MenuController extends Controller
 {
@@ -30,14 +32,29 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        // VALIDAMOS LOS DATOS
         $request->validate([
             'fecha' => 'required|date',
-            'descripcion' => 'required|string',
-            'precio' => 'required|numeric'
+            'descripcion' => 'required|string|max:400|min:10',
+            'precio' => 'required|numeric',
+            'imagen1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4000',
+            'imagen2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4000',
+            'imagen3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4000'
         ]);
 
-        Menu::create($request->all());
+        $menu = new Menu($request->all());
+
+        // Procesar las imágenes
+        if ($request->hasFile('imagen1')) {
+            $menu->imagen1 = $request->file('imagen1')->store('menus', 'public');
+        }
+        if ($request->hasFile('imagen2')) {
+            $menu->imagen2 = $request->file('imagen2')->store('menus', 'public');
+        }
+        if ($request->hasFile('imagen3')) {
+            $menu->imagen3 = $request->file('imagen3')->store('menus', 'public');
+        }
+
+        $menu->save();
         return redirect()->route('admin.menu')->with('success', 'Menú creado exitosamente');
     }
 
@@ -46,7 +63,7 @@ class MenuController extends Controller
      */
     public function show(string $id)
     {
-        return Menu::findOrFail($id); // SE ENCARGA DE ELIMINAR AL MENU CON ID $id
+        return Menu::findOrFail($id);
     }
 
     /**
@@ -65,10 +82,35 @@ class MenuController extends Controller
         $request->validate([
             'fecha' => 'required|date',
             'descripcion' => 'required|string',
-            'precio' => 'required|numeric'
+            'precio' => 'required|numeric',
+            'imagen1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imagen2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imagen3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        $menu->update($request->all());
+        $menu->fill($request->only(['fecha', 'descripcion', 'precio']));
+
+        // Procesar las imágenes
+        if ($request->hasFile('imagen1')) {
+            if ($menu->imagen1) {
+                Storage::disk('public')->delete($menu->imagen1);
+            }
+            $menu->imagen1 = $request->file('imagen1')->store('menus', 'public');
+        }
+        if ($request->hasFile('imagen2')) {
+            if ($menu->imagen2) {
+                Storage::disk('public')->delete($menu->imagen2);
+            }
+            $menu->imagen2 = $request->file('imagen2')->store('menus', 'public');
+        }
+        if ($request->hasFile('imagen3')) {
+            if ($menu->imagen3) {
+                Storage::disk('public')->delete($menu->imagen3);
+            }
+            $menu->imagen3 = $request->file('imagen3')->store('menus', 'public');
+        }
+
+        $menu->save();
         return redirect()->route('admin.menu')->with('success', 'Menú actualizado exitosamente');
     }
 
@@ -77,21 +119,40 @@ class MenuController extends Controller
      */
     public function destroy(Menu $menu)
     {
+        // Eliminar las imágenes asociadas
+        if ($menu->imagen1) {
+            Storage::disk('public')->delete($menu->imagen1);
+        }
+        if ($menu->imagen2) {
+            Storage::disk('public')->delete($menu->imagen2);
+        }
+        if ($menu->imagen3) {
+            Storage::disk('public')->delete($menu->imagen3);
+        }
+
         $menu->delete();
         return redirect()->route('admin.menu')->with('success', 'Menú eliminado exitosamente');
     }
 
     public function showPublicMenu()
     {
-        $today = Carbon::now()->format('Y-m-d');
-        $menu = Menu::where('fecha', $today)->first();
-        return view('menu', compact('menu'));
+        $currentDate = now()->format('Y-m-d');
+        $menu = Menu::where('fecha', $currentDate)->first();
+        return view('menu', compact('menu', 'currentDate'));
+    }
+
+    public function showMenuByDate($date)
+    {
+        $currentDate = $date;
+        $menu = Menu::where('fecha', $date)->first();
+        return view('menu', compact('menu', 'currentDate'));
     }
 
     public function menuDelDia()
     {
         $hoy = Carbon::now()->format('Y-m-d');
         $menu = Menu::where('fecha', $hoy)->first();
-        return view('menu', compact('menu'));
+        $bebidas = Producto::whereIn('categoria', ['bebida_fria', 'bebida_caliente'])->get();
+        return view('menu', compact('menu', 'bebidas'));
     }
 }

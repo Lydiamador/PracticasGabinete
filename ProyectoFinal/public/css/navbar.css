@@ -1,0 +1,12 @@
+ /* Asegura que la barra de navegación esté siempre visible en la parte superior */
+ .navbar-dark{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1030; /* Asegura que esté por encima de otros elementos */
+}
+
+body {
+    padding-top: 70px; /* Altura  de la barra de navegación */
+}
