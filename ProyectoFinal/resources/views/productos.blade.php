@@ -3,7 +3,7 @@
 @section('title', 'Nuestros Productos')
 
 @section('content')
-<div class="container">
+<div class="container mt-4">
     <h1 class="text-center mb-4">Nuestros Productos</h1>
 
     <!-- Tabs para categorías -->
@@ -26,94 +26,36 @@
 
     <!-- Contenido de las tabs -->
     <div class="tab-content" id="productTabsContent">
-        @foreach($productos as $categoria => $items)
-            <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
-                 id="{{ Str::slug($categoria) }}"
-                 role="tabpanel"
-                 aria-labelledby="{{ Str::slug($categoria) }}-tab">
-                
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    @foreach($items as $producto)
-                        <div class="col">
-                            <div class="card h-100">
-                                <!-- Bebidas Calientes -->
-                                @if($producto->nombre === 'Café Americano')
-                                    <img src="{{ asset('img/Bebidas_Calientes/cafeAmericano.jpeg') }}"
-                                         class="card-img-top"
-                                         alt="Café Americano"
-                                         style="height: 250px; object-fit: cover;">                                      
-                                @endif
-                                @if($producto->nombre === 'Capuchino')
-                                    <img src="{{ asset('img/Bebidas_Calientes/Capuchino.jpeg') }}"
-                                         class="card-img-top"
-                                         alt="Capuchino"
-                                         style="height: 250px; object-fit: cover;">  
-                                @endif
-                                @if($producto->nombre === 'Latte')
-                                    <img src="{{ asset('img/Bebidas_Calientes/Latte.jpg') }}"
-                                         class="card-img-top"
-                                         alt="Latte"
-                                         style="height: 250px; object-fit: cover;">  
-                                @endif
-                                <!-- Bebidas  Frias -->
-                                @if($producto->nombre === 'Té Helado')
-                                    <img src="{{ asset('img/Bebidas_Frias/Te.webp') }}"
-                                         class="card-img-top"
-                                         alt="Té Helado"
-                                         style="height: 250px; object-fit: cover;">                                      
-                                @endif
-                                @if($producto->nombre === 'Frappé de Chocolate')
-                                    <img src="{{ asset('img/Bebidas_Frias/Frappe.jpg') }}"
-                                         class="card-img-top"
-                                         alt="Frappé de Chocolate"
-                                         style="height: 250px; object-fit: cover;">  
-                                @endif
-                                <!-- Repostería -->
-                                @if($producto->nombre === 'Croissant')
-                                    <img src="{{ asset('img/Reposteria/croissant.jpg') }}"
-                                         class="card-img-top"
-                                         alt="Croissant"
-                                         style="height: 250px; object-fit: cover;">                                      
-                                @endif
-                                @if($producto->nombre === 'Muffin de Arándanos')
-                                    <img src="{{ asset('img/Reposteria/Muffin.jpg') }}"
-                                         class="card-img-top"
-                                         alt="Muffin de Arándanos"
-                                         style="height: 250px; object-fit: cover;">  
-                                @endif
-                                @if($producto->nombre === 'Cheesecake')
-                                    <img src="{{ asset('img/Reposteria/Cheesecake.jpg') }}"
-                                         class="card-img-top"
-                                         alt="Cheesecake"
-                                         style="height: 250px; object-fit: cover;">  
-                                @endif
-                                <!-- Sándwiches -->
-                                @if($producto->nombre === 'Sándwich de Jamón y Queso')
-                                    <img src="{{ asset('img/Sandwiches/Sandwich.jpg') }}"
-                                         class="card-img-top"
-                                         alt="Sándwich de Jamón y Queso
-"
-                                         style="height: 250px; object-fit: cover;">                                      
-                                @endif
-                                @if($producto->nombre === 'Bagel con Salmón y Queso Crema')
-                                    <img src="{{ asset('img/Sandwiches/bagel.jpg') }}"
-                                         class="card-img-top"
-                                         alt="Bagel con Salmón y Queso Crema"
-                                         style="height: 250px; object-fit: cover;">  
-                                @endif
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $producto->nombre }}</h5>
-                                    <p class="card-text">
-                                        <span class="badge bg-primary">{{ $producto->categoria }}</span>
-                                        <span class="fs-5 fw-bold text-primary float-end">{{ number_format($producto->precio, 2) }}€</span>
-                                    </p>
-                                </div>
+        @foreach($productos as $categoria => $items) 
+    <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="{{ Str::slug($categoria) }}" role="tabpanel" aria-labelledby="{{ Str::slug($categoria) }}-tab">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach($items as $producto)
+                <div class="col">
+                    <div class="card h-100 border shadow-sm">
+                        <!-- Imagen del producto -->
+                        <div class="card-img-top overflow-hidden" style="height: 250px; object-fit: cover;">
+                            @if($producto->imagen)
+                                <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="w-100 h-100" style="object-fit: cover;">
+                            @else
+                                <img src="{{ asset('img/default-product.jpg') }}" alt="Producto sin imagen" class="w-100 h-100" style="object-fit: cover;">
+                            @endif
+                        </div>
+
+                        <!-- Detalles del producto -->
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title">{{ $producto->nombre }}</h5>
+                            <p class="card-text text-muted">{{ Str::limit($producto->descripcion ?? 'Sin descripción', 50) }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary">{{ $producto->categoria }}</span>
+                                <span class="fs-5 fw-bold text-primary">{{ number_format($producto->precio, 2) }}€</span>
                             </div>
                         </div>
-                    @endforeach
+                    </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
+    </div>
+@endforeach
     </div>
 </div>
-@endsection  
+@endsection

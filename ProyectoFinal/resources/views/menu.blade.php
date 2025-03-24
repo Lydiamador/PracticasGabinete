@@ -7,7 +7,8 @@
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
                     <h2 class="text-center mb-0">Menú del Día</h2>
-                    <p class="text-center mb-0">{{ \Carbon\Carbon::now()->format('d/m/Y') }}</p>
+                    <p class="text-center mb-0">{{ $fechaActual }}</p>
+
                 </div>
                 <div class="card-body">
                     @if($menu)
@@ -19,7 +20,7 @@
                                 <div class="carousel-inner">
                                     @if($menu->imagen1)
                                         <div class="carousel-item active">
-                                            <img src="{{ asset('storage/'.$menu->imagen1) }}" class="d-block w-100 menu-image" alt="Plato 1">
+                                            <img src="{{ asset('storage/'.$menu->imagen1) }}" class="d-block w-100 menu-image" alt="Plato 1" style="">
                                         </div>
                                     @endif
                                     @if($menu->imagen2)

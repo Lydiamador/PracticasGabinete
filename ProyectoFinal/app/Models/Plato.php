@@ -15,7 +15,8 @@ class Plato extends Model
     protected $fillable = [
         'nombre',
         'tipo',
-        'precio'
+        'precio',
+        'imagen' // Agregamos el campo "imagen"
     ];
 
 }

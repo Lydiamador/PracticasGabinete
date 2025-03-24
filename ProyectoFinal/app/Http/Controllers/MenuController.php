@@ -81,7 +81,7 @@ class MenuController extends Controller
     {
         $request->validate([
             'fecha' => 'required|date',
-            'descripcion' => 'required|string',
+            'descripcion' => 'required|string|max:400|min:10',
             'precio' => 'required|numeric',
             'imagen1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'imagen2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -134,25 +134,11 @@ class MenuController extends Controller
         return redirect()->route('admin.menu')->with('success', 'Menú eliminado exitosamente');
     }
 
-    public function showPublicMenu()
-    {
-        $currentDate = now()->format('Y-m-d');
-        $menu = Menu::where('fecha', $currentDate)->first();
-        return view('menu', compact('menu', 'currentDate'));
-    }
-
-    public function showMenuByDate($date)
-    {
-        $currentDate = $date;
-        $menu = Menu::where('fecha', $date)->first();
-        return view('menu', compact('menu', 'currentDate'));
-    }
-
     public function menuDelDia()
     {
-        $hoy = Carbon::now()->format('Y-m-d');
-        $menu = Menu::where('fecha', $hoy)->first();
-        $bebidas = Producto::whereIn('categoria', ['bebida_fria', 'bebida_caliente'])->get();
-        return view('menu', compact('menu', 'bebidas'));
+        $hoy = Carbon::now();
+        $menu = Menu::where('fecha', $hoy->format('Y-m-d'))->first();
+        $fechaActual = $hoy->format('d/m/Y');
+        return view('menu', compact('menu', 'fechaActual'));
     }
 }

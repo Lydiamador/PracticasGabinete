@@ -19,7 +19,11 @@ Route::post('/logout', [UsuarioController::class, 'logout'])->name('logout');
 Route::get('/register', [UsuarioController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [UsuarioController::class, 'store'])->name('register.submit');
 
-// RUTAS PROTEGIDAS POR AUTENTICACIÓN
+// Ruta pública para ver el menú del día
+Route::get('/menu-del-dia', [MenuController::class, 'menuDelDia'])->name('menu.dia');
+Route::get('/menu/{date}', [MenuController::class, 'showMenuByDate'])->name('menu.date');
+
+// Rutas protegidas por autenticación
 Route::middleware('auth')->group(function () {
     // Página de Inicio para Usuarios
     Route::get('/Inicio', function () {
@@ -31,10 +35,10 @@ Route::middleware('auth')->group(function () {
 
     // Ruta para mostrar los productos (vista pública)
     Route::get('/productos', [ProductoController::class, 'index'])->name('productos');
-    
+
     // Ruta para mostrar el menú del día (vista pública)
     Route::get('/menu', [MenuController::class, 'showPublicMenu'])->name('menu');
-    
+
     // Rutas de administración
     Route::middleware(['auth'])->group(function () {
         Route::get('/admin', function () {
@@ -44,17 +48,20 @@ Route::middleware('auth')->group(function () {
             return redirect()->route('Inicio');
         })->name('admin.admin');
 
-        // RUTAS DE GESTION PARA LOS ADMINISTRADORES
+        // RUTAS DE GESTIÓN PARA LOS ADMINISTRADORES
         Route::group(['middleware' => function ($request, $next) {
             if (auth()->user()->rol !== 'Admin') {
                 return redirect()->route('Inicio');
             }
             return $next($request);
         }], function () {
+            // Rutas para gestión de productos
             Route::get('/gestion-productos', [ProductoController::class, 'adminIndex'])->name('gestion-productos');
-            Route::post('/productos', [ProductoController::class, 'store']);
-            Route::put('/productos/{id}', [ProductoController::class, 'update']);
-            Route::delete('/productos/{id}', [ProductoController::class, 'destroy']);
+            Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create'); // Crear nuevo producto
+            Route::post('/productos', [ProductoController::class, 'store'])->name('productos.store'); // Guardar nuevo producto
+            Route::get('/productos/{id}/edit', [ProductoController::class, 'edit'])->name('productos.edit'); // Editar producto
+            Route::put('/productos/{id}', [ProductoController::class, 'update'])->name('productos.update'); // Actualizar producto
+            Route::delete('/productos/{id}', [ProductoController::class, 'destroy'])->name('productos.destroy'); // Eliminar producto
 
             // Rutas para gestión de menús
             Route::get('/gestion-menu', [MenuController::class, 'index'])->name('admin.menu');
@@ -64,7 +71,3 @@ Route::middleware('auth')->group(function () {
         });
     });
 });
-
-// Ruta pública para ver el menú del día
-Route::get('/menu-del-dia', [MenuController::class, 'menuDelDia'])->name('menu.dia');
-Route::get('/menu/{date}', [MenuController::class, 'showMenuByDate'])->name('menu.date');

@@ -33,7 +33,9 @@ class PlatoController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255',
             'tipo' => 'required|string|max:100',
-            'precio' => 'required|numeric'
+            'precio' => 'required|numeric',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+
         ]);
 
         return Plato::create($request->all()); // CREA UN NUEVO PLATO
