@@ -1,0 +1,24 @@
+/*RESPONSIVE DESIGN*/
+/* Móviles */
+@media (max-width: 768px) {
+    .contenedor {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .navbar a {
+        padding: 15px;
+    }
+}
+
+/*Tablets */
+@media (max-width: 1024px) {
+    .grid-container {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}

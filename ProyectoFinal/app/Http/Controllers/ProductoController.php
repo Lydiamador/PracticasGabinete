@@ -48,7 +48,7 @@ class ProductoController extends Controller
             'categoria' => 'required|string|max:255',
             'nombre' => 'required|string|max:255',
             'precio' => 'required|numeric',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,wepb|max:2048'
         ]);
 
         // Crear una nueva instancia de Producto
@@ -91,7 +91,7 @@ class ProductoController extends Controller
             'categoria' => 'required|string|max:255',
             'nombre' => 'required|string|max:255',
             'precio' => 'required|numeric',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048'
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
 
         // Buscar el producto a actualizar

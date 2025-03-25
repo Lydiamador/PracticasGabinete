@@ -10,10 +10,10 @@
                     <p class="text-center mb-0">{{ $fechaActual }}</p>
 
                 </div>
-                <div class="card-body">
+                <div class="card-body"> 
                     @if($menu)
                         <div class="text-center">
-                            <h3 class="mb-4"><I><u>MENÚ DEL DÍA</u></I></h3>
+                            <h3 class="mb-4"><i><u>MENÚ DEL DÍA</u></i></h3>
                             
                             <!-- Carrusel de imágenes -->
                             <div id="menuCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
@@ -49,8 +49,11 @@
                             </div>
 
                             <div class="mt-4">
-                                <h4 class="text-primary">Precio del Menú: {{ number_format($menu->precio, 2) }} €</h4>
+                                <h4 class="text-primary">Precio del Menú: {{ number_format($menu->precio, 2) }} € (Incluye Bebida)</h4>
                             </div>
+
+                            <a href="{{ route('pedido.agregar', ['id' => $menu->id, 'tipo' => 'menu']) }}" class="btn btn-primary">Agregar al Carrito</a>
+
                         </div>
                     @else
                         <div class="text-center">

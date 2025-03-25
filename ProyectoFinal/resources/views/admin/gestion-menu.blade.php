@@ -1,7 +1,6 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 
-@section('content') 
-
+@section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -11,8 +10,7 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createMenuModal">
                         Crear Nuevo Menú
                     </button>
-                </div> 
-                <!-- ENCABEZADO DE LA TARJETA CON TÍTULO Y BOTÓN PARA CREAR UN NUEVO MENÚ -->
+                </div>
 
                 <div class="card-body">
                     @if(session('success'))
@@ -20,11 +18,10 @@
                             {{ session('success') }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                    @endif 
-                    <!-- MUESTRA UN MENSAJE DE ÉXITO SI EXISTE EN LA SESIÓN -->
+                    @endif
 
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table id="menuTable" class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -67,8 +64,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </div> 
-                    <!-- TABLA RESPONSIVA QUE MUESTRA LOS MENÚS CON SUS DATOS (ID, FECHA, DESCRIPCIÓN, PRECIO, IMÁGENES Y ACCIONES) -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -123,7 +119,7 @@
             </form>
         </div>
     </div>
-</div> 
+</div>
 
 <!-- MODALES DE EDICIÓN -->
 @foreach($menus as $menu)
@@ -144,11 +140,9 @@
                         </div>
                         <div class="mb-3">
                             <label for="descripcion{{ $menu->id }}" class="form-label">Descripción</label>
-                            <textarea class="form-control" id="descripcion{{ $menu->id }}" name="descripcion" required>{{ 
-                                $menu->descripcion ?? "Primer Plato:
+                            <textarea class="form-control" id="descripcion{{ $menu->id }}" name="descripcion" required>{{ $menu->descripcion ?? "Primer Plato:
                                                        Segundo Plato:
-                                                       Postre:" 
-                            }}</textarea>
+                                                       Postre:" }}</textarea>
                         </div>
                         <div class="mb-3">
                             <label for="precio{{ $menu->id }}" class="form-label">Precio</label>
@@ -192,7 +186,7 @@
                 </form>
             </div>
         </div>
-    </div> 
+    </div>
 
     <!-- MODAL PARA ELIMINAR UN MENÚ -->
     <div class="modal fade" id="deleteMenuModal{{ $menu->id }}" tabindex="-1" aria-hidden="true">
@@ -202,20 +196,39 @@
                     <h5 class="modal-title">Confirmar Eliminación</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    ¿Está seguro de que desea eliminar este menú?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form action="{{ route('admin.menu.destroy', $menu->id) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('DELETE')
+                <form action="{{ route('admin.menu.destroy', ['menu' => $menu->id]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <div class="modal-body">
+                        <p>¿Estás seguro de que deseas eliminar este menú?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </div> 
+    </div>
 @endforeach
+</div>
 
-@endsection 
+<!-- Dependencias de DataTables y jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#menuTable').DataTable({
+            responsive: true,
+            language: {
+                search: "Buscar:",
+                lengthMenu: "Mostrar _MENU_ registros por página",
+                info: "Mostrando página _PAGE_ de _PAGES_",
+                infoEmpty: "No se encontraron registros",
+                infoFiltered: "(filtrado de _MAX_ registros totales)"
+            }
+        });
+    });
+</script>
+@endsection

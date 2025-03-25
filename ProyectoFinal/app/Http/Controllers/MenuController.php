@@ -36,9 +36,9 @@ class MenuController extends Controller
             'fecha' => 'required|date',
             'descripcion' => 'required|string|max:400|min:10',
             'precio' => 'required|numeric',
-            'imagen1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4000',
-            'imagen2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4000',
-            'imagen3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4000'
+            'imagen1' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4000',
+            'imagen2' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4000',
+            'imagen3' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4000'
         ]);
 
         $menu = new Menu($request->all());
@@ -83,9 +83,9 @@ class MenuController extends Controller
             'fecha' => 'required|date',
             'descripcion' => 'required|string|max:400|min:10',
             'precio' => 'required|numeric',
-            'imagen1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'imagen2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'imagen3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'imagen1' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'imagen2' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'imagen3' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
 
         $menu->fill($request->only(['fecha', 'descripcion', 'precio']));

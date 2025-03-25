@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage; 
 use Illuminate\Http\Request;
 use App\Models\Plato;
 
@@ -12,9 +13,16 @@ class PlatoController extends Controller
      */
     public function index()
     {
+        // Obtener los platos agrupados por el tipo
+        $platos= Plato::all()->groupBy('tipo');
+        return view('platos', compact('platos'));
+    }
+
+    public function adminIndex()
+    {
+        // Obtener todos los platos para la gestión
         $platos = Plato::all();
-        dd($platos); // Esto nos mostrará los datos que se están recuperando
-        return view('productos', compact('platos'));
+        return view('admin.gestion-platos', compact('platos'));
     }
 
     /**
@@ -22,7 +30,8 @@ class PlatoController extends Controller
      */
     public function create()
     {
-        //
+        $platos = Plato::all();
+        return view('admin.gestion-platos', compact('platos'));
     }
 
     /**
@@ -34,27 +43,39 @@ class PlatoController extends Controller
             'nombre' => 'required|string|max:255',
             'tipo' => 'required|string|max:100',
             'precio' => 'required|numeric',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
 
         ]);
 
-        return Plato::create($request->all()); // CREA UN NUEVO PLATO
+        // CREAR UNA NUEVA INSTANCIA DE ESTE PLATO
+        $plato = new Plato($request->only(['nombre', 'tipo', 'precio']));
+
+        // PROCESAR LA IMAGEN EN CASO DE QUE EXISTA
+        if($request->hasFile('imagen')){
+            $plato->imagen= $request->file("imagen")->store('platos', 'public');
+        }
+
+        // GUARDAMOS EL PLATO EN LA BASE DE DATOS
+        $plato->save();
+
+        // MOSTRAR MENSAJE DE EXITO
+        return redirect()->route("gestion-platos")->with('success', 'Plato creado exitosamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        return Plato::findOrFail($id); // MUESTRA UN PLATO ESPECIFICO POR SU ID
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        // BUSCAR PLATO POR ID
+        $plato = Plato::findOrFail($id);
+
+        // OBTENER TODOS LOS PLATOS PARA MANTENER LA TABLA VISIBLE
+        $platos = Plato::all();
+
+        // PASAR TANTO EL PRODUTO COMO LA LISTA DE PRODUCTOS A LA VISTA
+        return view("admin.gestion-platos", compact("plato","platos")); 
     }
 
     /**
@@ -62,9 +83,33 @@ class PlatoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $plato= Plato::findOrFail($id);
-        $plato->update($request->all());// ACTUALIZAMOS LOS DATOS DEL PLATO
-        return $plato;
+        // VALIDAR LOS DATOS DEL FORMULARIO 
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'tipo' => 'required|string|max:100',
+            'precio' => 'required|numeric',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
+
+        ]);
+
+        // BUSCAR EL PLATO A ACTUALIAR
+        $plato = Plato::findOrFail($id);
+        $plato->fill($request->only(['nombre', 'tipo', 'precio']));
+
+        // PROCESAR LA IMAGEN EN CASO DE QUE EXISTA
+        if($request->hasFile('imagen')){
+            // ELIMINAR LA IMAGEN SI EXISTE
+            if($plato->imagen){
+                Storage::disk('public')->delete($plato->imagen);
+            }
+            $plato->imagen = $request->file('imagen')->store('platos', 'public');
+        }
+
+        // GUARDAMOS EL PLATO EN LA BASE DE DATOS
+        $plato->save();
+
+        // MOSTRAR MENSAJE DE EXITO
+        return redirect()->route("gestion-platos")->with('success', 'Plato actualizado exitosamente.');
     }
 
     /**
@@ -72,7 +117,18 @@ class PlatoController extends Controller
      */
     public function destroy(string $id)
     {
-        Plato::destroy($id); // SE ENCARGA DE ELIMINAR AL PLATO CON ID $id
-        return response()->json(["message"=>"El Plato ha sido Eliminado"]);
+        // BUSCAR EL PLATO A ELIMINAR
+        $plato = Plato::findOrFail($id);
+
+        // ELIMINAR LA IMAGEN SI EXISTE
+        if($plato->imagen){
+            Storage::disk('public')->delete($plato->imagen);
+        }
+
+        // ELIMINAR EL PLATO DE LA BASE DE DATOS
+        $plato->delete();
+
+        // MOSTRAR MENSAJE DE EXITO
+        return redirect()->route("gestion-platos")->with('success', 'Plato eliminado exitosamente.');
     }
 }
