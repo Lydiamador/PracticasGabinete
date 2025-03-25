@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('title', 'Carrito de Compras')
-
+<link rel="stylesheet" href="{{ asset('css/carro.css') }}">
 @section('content')
-<div class="container mt-4">
+<div class="container mt-5">
     <h1 class="text-center mb-4">Carrito de Compras</h1>
 
     @if(session('error'))
@@ -12,53 +12,40 @@
         </div>
     @endif
 
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Imagen</th>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Total</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($carrito as $id => $item)
-                <tr>
-                    <td>
-                        @if(isset($item['producto']) && $item['producto'] instanceof \App\Models\Plato)
-                            <img src="{{ asset('storage/' . $item['producto']->imagen) }}" alt="Imagen del Plato" width="50">
-                        @elseif(isset($item['producto']) && $item['producto'] instanceof \App\Models\Menu)
-                            <img src="{{ asset('storage/menus/menu_del_dia.png') }}" alt="Imagen del Menú" width="50">
-                        @else
-                            <img src="{{ asset('storage/default-product.png') }}" alt="Producto" width="50">
-                        @endif
-                    </td>
-                    <td>
-                        @if(isset($item['producto']) && $item['producto'] instanceof \App\Models\Plato)
-                            {{ $item['producto']->nombre }}
-                        @elseif(isset($item['producto']) && $item['producto'] instanceof \App\Models\Menu)
-                            Menú del día
-                        @else
-                            Producto no disponible
-                        @endif
-                    </td>
-                    <td>{{ number_format($item['precio'], 2) }}€</td>
-                    <td>{{ $item['cantidad'] }}</td>
-                    <td>{{ number_format($item['precio'] * $item['cantidad'], 2) }}€</td>
-                    <td>
-                        <a href="{{ route('pedido.eliminar', $id) }}" class="btn btn-danger">Eliminar</a>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        
+    <div class="row">
+        @foreach($carrito as $id => $item)
+        <div class="col-12 mb-4">
+            <div class="card shadow-sm border-0 rounded-lg p-3">
+                <div class="d-flex align-items-center">
+                    <div class="col-md-2">
+                        <img src="{{ isset($item['producto']) && $item['producto'] instanceof \App\Models\Plato ? asset('storage/' . $item['producto']->imagen) : (isset($item['producto']) && $item['producto'] instanceof \App\Models\Menu ? asset('storage/menus/menu_del_dia.png') : (isset($item['producto']) && $item['producto'] instanceof \App\Models\Producto ? asset('storage/' . $item['producto']->imagen) : asset('storage/default-product.png'))) }}" class="img-fluid rounded" alt="Imagen del Producto" style="height: 100px; object-fit: cover;">
+                    </div>
+                    <div class="col-md-6 ms-3">
+                        <h5 class="text-dark">
+                            {{ isset($item['producto']) && $item['producto'] instanceof \App\Models\Plato ? $item['producto']->nombre : (isset($item['producto']) && $item['producto'] instanceof \App\Models\Menu ? 'Menú del día' : (isset($item['producto']) && $item['producto'] instanceof \App\Models\Producto ? $item['producto']->nombre : 'Producto no disponible')) }}
+                        </h5>
+                        <p class="text-muted mb-1">
+                            <strong>Precio:</strong> {{ number_format($item['precio'], 2) }}€<br>
+                            <strong>Cantidad:</strong> {{ $item['cantidad'] }}<br>
+                            <strong>Total:</strong> {{ number_format($item['precio'] * $item['cantidad'], 2) }}€
+                        </p>
+                    </div>
+                    <div class="col-md-2 text-end">
+                        <a href="{{ route('pedido.eliminar', $id) }}" class="btn btn-outline-danger btn-sm">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
 
-        <h3 class="text-right">Total: {{ number_format($total, 2) }}€</h3>
-        <a href="{{ route('pedido.realizar') }}" class="btn btn-success">Realizar Pedido</a>
+    <div class="text-right mt-4">
+        <h3 class="text-dark"><strong>Total:</strong> {{ number_format($total, 2) }}€</h3>
+        <form action="{{ route('pedido.realizar') }}" method="POST" class="d-inline">
+            @csrf
+            <button type="submit" class="btn btn-primary btn-lg mt-3">Realizar Pedido</button>
+        </form>
     </div>
 </div>
+
 @endsection

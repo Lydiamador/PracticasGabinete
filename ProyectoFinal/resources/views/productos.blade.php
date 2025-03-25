@@ -49,6 +49,7 @@
                                 <span class="badge bg-primary">{{ $producto->categoria }}</span>
                                 <span class="fs-5 fw-bold text-primary">{{ number_format($producto->precio, 2) }}€</span>
                             </div>
+                            <a href="{{ route('pedido.agregar', ['id' => $producto->id, 'tipo' => 'producto']) }}" class="btn btn-primary">Agregar al Carrito</a>
                         </div>
                     </div>
                 </div>

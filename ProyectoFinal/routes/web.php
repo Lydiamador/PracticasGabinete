@@ -25,7 +25,6 @@ Route::post('/register', [UsuarioController::class, 'store'])->name('register.su
 Route::get('/menu-del-dia', [MenuController::class, 'menuDelDia'])->name('menu.dia');
 Route::get('/menu/{date}', [MenuController::class, 'showMenuByDate'])->name('menu.date');
 
-
 Route::prefix('pedido')->group(function () {
     // Ver carrito
     Route::get('carrito', [PedidoController::class, 'carrito'])->name('pedido.carrito');
@@ -38,9 +37,6 @@ Route::prefix('pedido')->group(function () {
     
     // Realizar pedido
     Route::post('realizar', [PedidoController::class, 'realizarPedido'])->name('pedido.realizar');
-    
-    // Ver todos los pedidos
-    Route::get('pedidos', [PedidoController::class, 'index'])->name('pedidos.index');
 });
 
 // Rutas protegidas por autenticación
@@ -59,11 +55,9 @@ Route::middleware('auth')->group(function () {
     // Ruta para mostrar los platos (vista pública)
     Route::get('/platos', [PlatoController::class, 'index'])->name('platos');
 
-
     // Ruta para mostrar el menú del día (vista pública)
     Route::get('/menu', [MenuController::class, 'showPublicMenu'])->name('menu');
 
-    
     // Rutas de administración
     Route::middleware(['auth'])->group(function () {
         Route::get('/admin', function () {
@@ -101,6 +95,9 @@ Route::middleware('auth')->group(function () {
             Route::post('/menu', [MenuController::class, 'store'])->name('admin.menu.store');
             Route::put('/menu/{menu}', [MenuController::class, 'update'])->name('admin.menu.update');
             Route::delete('/menu/{menu}', [MenuController::class, 'destroy'])->name('admin.menu.destroy');
+
+            // Ruta para ver todos los pedidos
+            Route::get('pedido/pedidos', [PedidoController::class, 'index'])->name('pedidos.index');
         });
     });
 });

@@ -46,6 +46,9 @@
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('admin.menu') ? 'active' : '' }}" href="{{ route('admin.menu') }}">Gestión Menús</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('pedidos.index') ? 'active' : '' }}" href="{{ route('pedidos.index') }}">Gestión Pedidos</a>
+                        </li>
                     @endif
                 @endauth
             </ul>

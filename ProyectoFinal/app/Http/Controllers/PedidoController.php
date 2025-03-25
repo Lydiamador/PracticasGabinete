@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\Menu; 
 use App\Models\Plato;
 use App\Models\Pedido;
+use App\Models\Producto;
 use Session;
 
 class PedidoController extends Controller
@@ -34,11 +35,13 @@ class PedidoController extends Controller
     {
         $carrito = Session::get('carrito', []);
 
-        // Verificamos si el tipo es Plato o Menu
+        // Verificamos si el tipo es Plato, Menu o Producto
         if ($tipo == 'plato') {
             $producto = Plato::findOrFail($id);
         } elseif ($tipo == 'menu') {
             $producto = Menu::findOrFail($id);
+        } elseif ($tipo == 'producto') {
+            $producto = Producto::findOrFail($id);
         } else {
             // Si el tipo no es correcto, redirigimos o lanzamos un error
             return redirect()->route('pedido.carrito')->with('error', 'Producto no válido.');
@@ -86,26 +89,34 @@ class PedidoController extends Controller
 
         // Crear el pedido y asociarlo al usuario autenticado
         $pedido = new Pedido();
-        $pedido->id_usuario = auth()->user()->id; // Si estás usando autenticación
+        $pedido->id_usuario = auth()->user()->id;
         $pedido->fecha = now();
         $pedido->total = $this->calcularTotal($carrito);
-        $pedido->save();
 
-        // Asociar productos al pedido (menú o plato)
+        // Concatenar los nombres de los productos con las cantidades
+        $nombresProductos = [];
         foreach ($carrito as $item) {
             if ($item['producto'] instanceof Plato) {
-                // Aquí podrías guardar la relación entre el pedido y el plato
-                $pedido->platos()->attach($item['producto']->id, ['cantidad' => $item['cantidad']]);
+                $nombresProductos[] = $item['producto']->nombre . ' x ' . $item['cantidad'];
             } elseif ($item['producto'] instanceof Menu) {
-                // Aquí podrías guardar la relación entre el pedido y el menú
-                $pedido->menus()->attach($item['producto']->id, ['cantidad' => $item['cantidad']]);
+                $nombresProductos[] = 'Menú del día x ' . $item['cantidad'];
+            } elseif ($item['producto'] instanceof Producto) {
+                $nombresProductos[] = $item['producto']->nombre . ' x ' . $item['cantidad'];
             }
         }
 
+        // Guardar el nombre concatenado en el campo 'nombre' del pedido
+        $pedido->nombre = implode(', ', $nombresProductos);
+
+        // Guardar el pedido
+        $pedido->save();
+
         // Vaciar el carrito después de realizar el pedido
         Session::forget('carrito');
+        
         return redirect()->route('pedidos.index')->with('success', 'Pedido realizado con éxito.');
     }
+
 
     /**
      * Calcular el total del carrito.

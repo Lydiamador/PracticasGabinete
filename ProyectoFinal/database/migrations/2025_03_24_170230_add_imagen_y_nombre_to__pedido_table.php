@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('Pedidos', function (Blueprint $table) {
-            $table->string('imagen')->nullable(); // Campo para almacenar la ruta de la imagen
+        Schema::table('pedidos', function (Blueprint $table) {
             $table->string('nombre')->nullable(); // Campo para almacenar el nombre
         });
     }
 
     public function down()
     {
-        Schema::table('Pedidos', function (Blueprint $table) {
-            $table->dropColumn('imagen');
+        Schema::table('pedidos', function (Blueprint $table) {
             $table->dropColumn('nombre');
         });
     }

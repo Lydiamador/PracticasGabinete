@@ -19,6 +19,11 @@ class Pedido extends Model
         'total'
     ];
 
+    // Fechas que Laravel convertirá automáticamente a objetos Carbon
+    protected $dates = [
+        'fecha'
+    ];
+
     // UN PEDIDO PUEDE PERTENECER A UN SOLO USUARIO
     public function usuario(): BelongsTo
     {
