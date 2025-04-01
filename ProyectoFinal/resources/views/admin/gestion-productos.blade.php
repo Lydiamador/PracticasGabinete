@@ -44,13 +44,13 @@
                             </td>
                             <td>
                                 <a href="{{ route('productos.edit', $productoItem->id) }}" class="btn btn-sm btn-warning">
-                                    <i class="fas fa-edit"></i> Editar
+                                    <i class="fas fa-edit"></i> 
                                 </a>
                                 <form action="{{ route('productos.destroy', $productoItem->id) }}" method="POST" style="display: inline-block;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?')">
-                                        <i class="fas fa-trash"></i> Eliminar
+                                        <i class="fas fa-trash"></i> 
                                     </button>
                                 </form>
                             </td>

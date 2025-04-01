@@ -39,6 +39,15 @@ class MenuController extends Controller
             'imagen1' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4000',
             'imagen2' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4000',
             'imagen3' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4000'
+        ],
+        [
+            "fecha.required" => "El campo fecha es obligatorio",
+            "descripcion.max" => "La descripción no puede tener más de 400 caracteres",
+            "descripcion.min" => "La descripción debe tener al menos 10 caracteres",
+            "precio.numeric" => "El precio debe ser un número válido",
+            "imagen1.mimes" => "El archivo debe ser un archivo de imagen válido",
+            "imagen2.mimes" => "El archivo debe ser un archivo de imagen válido",            
+            "imagen3.mimes" => "El archivo debe ser un archivo de imagen válido"
         ]);
 
         $menu = new Menu($request->all());
@@ -86,6 +95,15 @@ class MenuController extends Controller
             'imagen1' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'imagen2' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'imagen3' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
+        ],
+        [
+            "fecha.required" => "El campo fecha es obligatorio",
+            "descripcion.max" => "La descripción no puede tener más de 400 caracteres",
+            "descripcion.min" => "La descripción debe tener al menos 10 caracteres",
+            "precio.numeric" => "El precio debe ser un número válido",
+            "imagen1.mimes" => "El archivo debe ser un archivo de imagen válido",
+            "imagen2.mimes" => "El archivo debe ser un archivo de imagen válido",            
+            "imagen3.mimes" => "El archivo debe ser un archivo de imagen válido"
         ]);
 
         $menu->fill($request->only(['fecha', 'descripcion', 'precio']));

@@ -5,6 +5,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\MenuController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\PaymentController;
 
 
 // RUTA PRINCIPAL
@@ -101,3 +102,8 @@ Route::middleware('auth')->group(function () {
         });
     });
 });
+
+// Ruta para pagar con Stripe
+Route::post('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
+Route::get('/success', [PaymentController::class, 'success'])->name('success');
+Route::get('/cancel', [PaymentController::class, 'cancel'])->name('cancel');

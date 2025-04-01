@@ -34,5 +34,11 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    // Configuracion de Stripe
+    'stripe' => [
+    'secret' => env('STRIPE_SECRET'),
+    'key' => env('STRIPE_KEY'),
+    ],
+
 
 ];

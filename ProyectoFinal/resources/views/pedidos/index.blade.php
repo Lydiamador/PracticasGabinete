@@ -12,11 +12,11 @@
         </div>
     @endif
 
-    <div class="row">
+    <div class="row" >
         @foreach($pedidos as $pedido)
         <div class="col-12 mb-4">
-            <div class="card shadow-sm border-0 rounded-lg p-3">
-                <div class="d-flex justify-content-between align-items-center">
+            <div class="card shadow-sm border-0 rounded-lg p-3" style="background-color: #c3dfb9;">
+                <div class="d-flex justify-content-between align-items-center" style="background-color: #c3dfb9;">
                     <div>
                         <h5 class="text-dark mb-2">Pedido #{{ $pedido->id }}</h5>
                         <p class="text-muted mb-1">

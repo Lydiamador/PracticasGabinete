@@ -40,11 +40,17 @@ class PlatoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|string|max:50',
             'tipo' => 'required|string|max:100',
             'precio' => 'required|numeric',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
 
+        ],
+        [
+            "nombre.max" => "El nombre no puede tener más de 50 caracteres.",
+            "tipo.max" => "El tipo no puede tener más de 100 caracteres.",
+            "precio.numeric" => "El precio debe ser un número válido.",
+            "imagen.mimes" => "El archivo debe ser un archivo de imagen válido."
         ]);
 
         // CREAR UNA NUEVA INSTANCIA DE ESTE PLATO
@@ -85,11 +91,17 @@ class PlatoController extends Controller
     {
         // VALIDAR LOS DATOS DEL FORMULARIO 
         $request->validate([
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|string|max:50',
             'tipo' => 'required|string|max:100',
             'precio' => 'required|numeric',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
 
+        ],
+        [
+            "nombre.max" => "El nombre no puede tener más de 50 caracteres.",
+            "tipo.max" => "El tipo no puede tener más de 100 caracteres.",
+            "precio.numeric" => "El precio debe ser un número válido.",
+            "imagen.mimes" => "El archivo debe ser un archivo de imagen válido."
         ]);
 
         // BUSCAR EL PLATO A ACTUALIAR

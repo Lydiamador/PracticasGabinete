@@ -3,6 +3,8 @@
 @section('title', 'Carrito de Compras')
 <link rel="stylesheet" href="{{ asset('css/carro.css') }}">
 @section('content')
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=delete" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=delete" />
 <div class="container mt-5">
     <h1 class="text-center mb-4">Carrito de Compras</h1>
 
@@ -31,7 +33,7 @@
                         </p>
                     </div>
                     <div class="col-md-2 text-end">
-                        <a href="{{ route('pedido.eliminar', $id) }}" class="btn btn-outline-danger btn-sm">Eliminar</a>
+                        <a href="{{ route('pedido.eliminar', $id) }}" class="material-symbols-outlined" style="background: none; border: none; color:red;">delete</a>
                     </div>
                 </div>
             </div>
@@ -41,10 +43,10 @@
 
     <div class="text-right mt-4">
         <h3 class="text-dark"><strong>Total:</strong> {{ number_format($total, 2) }}€</h3>
-        <form action="{{ route('pedido.realizar') }}" method="POST" class="d-inline">
+        <form action="{{ route('checkout') }}" method="POST">
             @csrf
-            <button type="submit" class="btn btn-primary btn-lg mt-3">Realizar Pedido</button>
-        </form>
+            <button type="submit" class="btn btn-primary btn-lg mt-3">Pagar</button>
+        </form>        
     </div>
 </div>
 

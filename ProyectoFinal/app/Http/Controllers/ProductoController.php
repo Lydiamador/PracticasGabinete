@@ -45,10 +45,16 @@ class ProductoController extends Controller
     {
         // Validar los datos del formulario
         $request->validate([
-            'categoria' => 'required|string|max:255',
-            'nombre' => 'required|string|max:255',
+            'categoria' => 'required|string|max:60',
+            'nombre' => 'required|string|max:50',
             'precio' => 'required|numeric',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,wepb|max:2048'
+        ],
+        [
+            "categoria.max" => "La categoría no puede tener más de 60 caracteres.",
+            "nombre.max" => "El nombre no puede tener más de 50 caracteres.",
+            "precio.numeric" => "El precio debe ser un número válido.",
+            "imagen.mimes" => "El archivo debe ser un archivo de imagen válido."
         ]);
 
         // Crear una nueva instancia de Producto
@@ -88,10 +94,16 @@ class ProductoController extends Controller
     {
         // Validar los datos del formulario
         $request->validate([
-            'categoria' => 'required|string|max:255',
-            'nombre' => 'required|string|max:255',
+            'categoria' => 'required|string|max:60',
+            'nombre' => 'required|string|max:50',
             'precio' => 'required|numeric',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
+        ],
+        [
+            "categoria.max" => "La categoría no puede tener más de 60 caracteres.",
+            "nombre.max" => "El nombre no puede tener más de 50 caracteres.",
+            "precio.numeric" => "El precio debe ser un número válido.",
+            "imagen.mimes" => "El archivo debe ser un archivo de imagen válido."
         ]);
 
         // Buscar el producto a actualizar

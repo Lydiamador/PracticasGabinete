@@ -39,5 +39,4 @@
     <div class="mt-3 text-center">
         <p>¿No tienes cuenta? <a href="{{ route('register') }}">Regístrate</a></p>
     </div>
-</div>
 @endsection

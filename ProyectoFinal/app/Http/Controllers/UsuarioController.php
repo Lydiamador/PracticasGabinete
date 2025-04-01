@@ -33,16 +33,19 @@ class UsuarioController extends Controller
     $request->validate([
         'nombre' => 'required|string|max:255',
         'correo' => 'required|email|unique:usuarios',
-        'password' => 'required|min:6'
+        'password' => 'required|min:8|max:16'
+    ], [
+        'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
+        'password.max' => 'La contraseña no puede tener más de 16 caracteres.'
     ]);
 
     // Determinar el rol basado en el correo electrónico
-    $rol = ($request->correo === 'kjblpo@gmail.com') ? 'Admin' : 'Usuario'; // CAMBIA EL CORREO ADMIN SI ES NECESARIO
+    $rol = ($request->correo === 'kjblpo@gmail.com') ? 'Admin' : 'Usuario';
 
     // Creamos el usuario
     Usuario::create([
         'nombre' => $request->nombre,
-        'rol' => $rol, // ASIGNAR EL ROL AUTOMÁTICAMENTE
+        'rol' => $rol,
         'correo' => $request->correo,
         'password' => bcrypt($request->password)
     ]);
@@ -50,6 +53,7 @@ class UsuarioController extends Controller
     // Redirigimos al formulario de inicio de sesión con un mensaje de éxito
     return redirect()->route('login')->with('success', '¡Registro exitoso! Por favor, inicia sesión.');
 }
+
 
     /**
      * Display the specified resource.

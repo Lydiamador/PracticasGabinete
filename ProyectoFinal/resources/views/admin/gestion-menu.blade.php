@@ -8,7 +8,8 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Gestión de Menús</h5>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createMenuModal">
-                        Crear Nuevo Menú
+                        <i class="fas fa-plus"></i> 
+                        Nuevo Menú
                     </button>
                 </div>
 
@@ -54,10 +55,10 @@
                                         </td>
                                         <td>
                                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editMenuModal{{ $menu->id }}">
-                                                Editar
+                                                <i class="fas fa-edit"></i>
                                             </button>
                                             <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteMenuModal{{ $menu->id }}">
-                                                Eliminar
+                                                <i class="fas fa-trash"></i> 
                                             </button>
                                         </td>
                                     </tr>
