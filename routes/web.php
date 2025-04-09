@@ -9,3 +9,5 @@ Route::apiResource('users', UserController::class);
 Route::get('/', function () {
     return view('welcome');
 });
+
+

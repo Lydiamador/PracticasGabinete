@@ -1,0 +1,13 @@
+### MOSTRAR TODOS LOS PEDIDOS
+GET http://localhost:8000/pedidos
+
+### MOSTRAR UN PEDIDO EN PARTICULAR
+GET http://localhost:8000/pedidos/1
+
+
+### MOSTRAR TODAS LAS LINEAS DE PEDIDOS
+GET http://localhost:8000/lineas
+
+### MOSTRAR UNA LINEA DE PEDIDO EN PARTICULAR
+GET http://localhost:8000/lineas/1
+
