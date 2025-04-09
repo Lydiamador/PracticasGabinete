@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 /*
 use Illuminate\Support\Facades\Route;
@@ -13,3 +14,5 @@ Route::get('/', function () {
 =======
 });*/
 >>>>>>> bcd68c6 (Version 3)
+=======
+>>>>>>> 4d7acd9 (Version 3)
