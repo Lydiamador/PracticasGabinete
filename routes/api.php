@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\Pedidos_LineasController;
@@ -35,3 +36,13 @@ Route::get('/lineas/cliente/{cliente_id}', [Pedidos_LineasController::class, 'li
 Route::get('/lineas/producto/{producto_id}', [Pedidos_LineasController::class, 'lineasPedidoProducto']);
 // OBTENER TODAS LAS LÍNEAS DE PEDIDOS DE UN PEDIDO EN PARTICULAR    
 Route::get('/lineas/pedido/{id}', [Pedidos_LineasController::class, 'lineasPedido']);
+=======
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UserController;
+
+Route::apiResource('users', UserController::class);
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
+>>>>>>> bcd68c6 (Version 3)

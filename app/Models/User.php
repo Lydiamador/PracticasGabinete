@@ -12,8 +12,10 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    //Indicamod el nombre de la tabla que se va a usar
     protected $table="users";
 
+    //Especificamos los campos que la componen
     protected $fillable = [
         'name',
         'email',
@@ -36,8 +38,8 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
+     * Atributos que deben permanecer ocultos cuando el modelo se convierte a JSON.
+     * Se usa para ocultar información sensible, como contraseñas o tokens de sesión.
      * @var list<string>
      */
     protected $hidden = [
@@ -46,7 +48,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * Conversión automática de tipos para ciertos campos.
      *
      * @return array<string, string>
      */
