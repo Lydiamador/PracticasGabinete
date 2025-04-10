@@ -7,6 +7,8 @@ use App\Http\Controllers\AgentesController;
 use App\Http\Controllers\CaracteristicasArticulosController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatCategoriasController;
+use App\Http\Controllers\CatProductosController;
+use App\Http\Controllers\CatProdVariantesController;
 
 // RUTAS PARA EL FUNCIONAMIENTO DE PEDIDOS
 // MOSTRAR TODOS LOS PEDIDOS
@@ -89,3 +91,27 @@ Route::put('/cat_categorias/{id}', [CatCategoriasController::class, 'update']);
 Route::delete('/cat_categorias/{id}', [CatCategoriasController::class, 'destroy']);
 // BUSCAR UNA CATEGORÍA ESPECIFICA EN TODOS LOS CARRITOS    
 Route::get('/cat_categorias/search/{id}', [CatCategoriasController::class, 'search']);
+
+// RUTAS PARA EL FUNCIONAMIENTO DE LOS PRODUCTOS EN EL CARRO
+// LISTAR TODOS LOS PRODUCTOS DEL CARRO
+Route::get('/Cat_productos', [CatProductosController::class, 'index']);
+// LISTAR UN PRODUCTO SOLA DEL CARRO
+Route:: get('/Cat_productos/{id}', [CatProductosController::class, 'show']);
+// CREAR UN PRODUCTO EN EL CARRO
+Route::post('/Cat_productos', [CatProductosController::class, 'store']);
+// ACTUALIZAR UN PRODUCTO EN EL CARRO
+Route::put('/Cat_productos/{id}', [CatProductosController::class, 'update']);
+// ELIMINAR UN PRODUCTO EN EL CARRO
+Route::delete('/Cat_productos/{id}', [CatProductosController::class, 'destroy']);
+
+// RUTAS PARA EL FUNCIONAMIENTO DE LAS VARIANTES DE PRODUCTOS
+// MOSTRAR TODOS LOS VARIANTES DEL PRODUCTO
+Route::get('/Cat_productos_variantes/{id}', [CatProdVariantesController::class, 'index']);
+// MOSTRAR UNA VARIANTE DEL PRODUCTO
+Route::get('/Cat_productos_variantes/{id}/{variante}', [CatProdVariantesController::class, 'show']);
+// CREAR UNA VARIANTE DE PRODUCTO    
+Route::post('/Cat_productos_variantes/{id}', [CatProdVariantesController::class, 'store']);
+// ACTUALIZAR UNA VARIANTE DE PRODUCTO
+Route::put('/Cat_productos_variantes/{id}/{variante}', [CatProdVariantesController::class, 'update']);
+// ELIMINAR UNA VARIANTE DE PRODUCTO
+Route::delete('/Cat_productos_variantes/{id}/{variante}', [CatProdVariantesController::class, 'destroy']);
