@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User_support;
 use Illuminate\Http\Request;
 
 class User_support_Controller extends Controller
@@ -37,15 +38,15 @@ class User_support_Controller extends Controller
             'evidencia3'=> 'nullable|string|max:255',
             'evidencia4'=> 'nullable|string|max:255',
             'evidencia5'=> 'nullable|string|max:255',
-            'estado'=> 'nullable|srting|in:Pendiente,Revision,Atendido',
-            'create_at'=> 'nullable|timestamp',
-            'update_at'=> 'nullable|timestamp',
+            'estado'=> 'nullable|string|in:Pendiente,Revision,Atendido',
+            'created_at'=> 'nullable|timestamp',
+            'updated_at'=> 'nullable|timestamp',
             'id_agente'=> 'nullable|integer|max:11'
         ]);
 
         $user= User_support::create($data);
 
-        return response()->json($user);
+        return response()->json($user,201);
     }
 
     /**
@@ -83,8 +84,8 @@ class User_support_Controller extends Controller
             'evidencia4'=> 'nullable|string|max:255',
             'evidencia5'=> 'nullable|string|max:255',
             'estado'=> 'nullable|srting|in:Pendiente,Revision,Atendido',
-            'create_at'=> 'nullable|timestamp',
-            'update_at'=> 'nullable|timestamp',
+            'created_at'=> 'nullable|timestamp',
+            'updated_at'=> 'nullable|timestamp',
             'id_agente'=> 'nullable|integer|max:11'
         ]);
 
@@ -100,6 +101,6 @@ class User_support_Controller extends Controller
     {
         $user = User_support::findOrFail($id);
         $user->delete();
-        return response()->json(['mensaje', 'Cliente eliminado correctamente.']);
+        return response()->json(['mensaje'=> 'Cliente eliminado correctamente.']);
     }
 }

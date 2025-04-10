@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\q_ofertac;
 class q_ofertac_Controller extends Controller
 {
     /**
@@ -81,6 +81,6 @@ class q_ofertac_Controller extends Controller
 
         $ofertac->delete();
 
-        return response()->json(['mensaje','Oferta eliminada correctamente']);
+        return response()->json(['mensaje'=>'Oferta eliminada correctamente']);
     }
 }

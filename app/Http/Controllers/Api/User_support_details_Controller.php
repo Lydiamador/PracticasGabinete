@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User_support_details;
 use Illuminate\Http\Request;
 
 class User_support_details_Controller extends Controller
@@ -25,8 +26,6 @@ class User_support_details_Controller extends Controller
             'tecnico'=> 'nullable|string|max:255',
             'observaciones'=>'nullable|string',
             'tiempo_uso' => 'nullable|time',
-            'created_at'=> 'nullable|timestamp',
-            'update_at'=>'nullable|timestamp',
         ]);
 
         $user= User_support_details::create($data);
@@ -54,8 +53,6 @@ class User_support_details_Controller extends Controller
             'tecnico'=> 'nullable|string|max:255',
             'observaciones'=>'nullable|string',
             'tiempo_uso' => 'nullable|time',
-            'created_at'=> 'nullable|timestamp',
-            'update_at'=>'nullable|timestamp',
         ]);
 
         $user->update($data);
@@ -71,6 +68,6 @@ class User_support_details_Controller extends Controller
        
         $user= User_support_details::findOrFail($id);
         $user->delete();
-        return response()-> json(['mensaje','El usuario ha sido eliminado correctamente.']);
+        return response()-> json(['mensaje'=>'El usuario ha sido eliminado correctamente.']);
     }
 }

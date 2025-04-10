@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\q_categoria;
 class q_categoria_Controller extends Controller
 {
     /**
@@ -66,6 +66,6 @@ class q_categoria_Controller extends Controller
     {
         $categoria = q_categoria::findOrFail($id);
         $categoria->delete();
-        return response()->json(['mensaje','Categoria eliminada correctamente.']);
+        return response()->json(['mensaje'=>'Categoria eliminada correctamente.']);
     }
 }

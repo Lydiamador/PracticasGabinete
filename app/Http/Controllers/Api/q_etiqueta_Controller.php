@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\q_etiqueta;
 class q_etiqueta_Controller extends Controller
 {
     /**

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\User_log;
 class User_log_Controller extends Controller
 {
     /**
@@ -80,6 +80,6 @@ class User_log_Controller extends Controller
 
         $user->delete;
 
-        return response()->json(['mensaje','Cliente eliminado correctamente.']);
+        return response()->json(['mensaje'=>'Cliente eliminado correctamente.']);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\q_articulo_precio;
 
 class q_articulo_precio_Controller extends Controller
 {
@@ -65,6 +66,6 @@ class q_articulo_precio_Controller extends Controller
     {
         $preart = q_articulo_precio::findOrfail($id);
         $preart->delete();
-        return response()->json(['mensaje','El precio del artivulo ha sido eliminado.']);
+        return response()->json(['mensaje'=>'El precio del artivulo ha sido eliminado.']);
     }
 }

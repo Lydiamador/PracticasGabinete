@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\q_marca;
 class q_marca_Controller extends Controller
 {
     /**
@@ -59,6 +59,6 @@ class q_marca_Controller extends Controller
     {
         $marca= q_marca::findOrFail($id);
         $marca->delete();
-        return response()-> json(['mensaje','La marca se ha eliminado correctamente.']);
+        return response()-> json(['mensaje'=>'La marca se ha eliminado correctamente.']);
     }
 }

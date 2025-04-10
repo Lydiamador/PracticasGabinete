@@ -6,6 +6,23 @@ use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\Pedidos_LineasController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\User_support_details_Controller;
+use App\Http\Controllers\Api\User_support_Controller;
+use App\Http\Controllers\Api\User_log_Controller;
+use App\Http\Controllers\Api\User_qanet_Controller;
+use App\Http\Controllers\Api\User_gif_points_Controller;
+use App\Http\Controllers\Api\q_tarifa_Controller;
+use App\Http\Controllers\Api\q_ofertac_Controller;
+use App\Http\Controllers\Api\q_marca_Controller;
+use App\Http\Controllers\Api\q_etiqueta_Controller;
+use App\Http\Controllers\Api\q_documento_Controller;
+use App\Http\Controllers\Api\q_documento_fichero_Controller;
+use App\Http\Controllers\Api\q_categoria_Controller;
+use App\Http\Controllers\Api\q_articulo_Controller;
+use App\Http\Controllers\Api\q_articulo_barra_Controller;
+use App\Http\Controllers\Api\q_articulo_etiqueta_Controller;
+use App\Http\Controllers\Api\q_articulo_precio_Controller;
+use App\Http\Controllers\Api\q_articulo_imagen_Controller;
 // RUTAS PARA EL FUNCIONAMIENTO DE PEDIDOS
 // MOSTRAR TODOS LOS PEDIDOS
 Route::get('/pedidos', [PedidosController::class, 'index']);
@@ -87,3 +104,5 @@ Route::apiResource('qarticulo_etiqueta', q_articulo_etiqueta_Controller::class);
 //RUTAS DE LA TABLA QARTICULO_IMAGEN
 Route::apiResource('qarticulo_imagen', q_articulo_imagen_Controller::class);
 
+//RUTAS DE LA TABLA QARTICULO_PRECIO
+Route::apiResource('qarticulo_precio', q_articulo__precio_Controller::class);
