@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\Pedidos_LineasController;
+use App\Http\Controllers\AgentesController;
+use App\Http\Controllers\CaracteristicasArticulosController;
 
 // RUTAS PARA EL FUNCIONAMIENTO DE PEDIDOS
 // MOSTRAR TODOS LOS PEDIDOS
@@ -35,3 +37,27 @@ Route::get('/lineas/cliente/{cliente_id}', [Pedidos_LineasController::class, 'li
 Route::get('/lineas/producto/{producto_id}', [Pedidos_LineasController::class, 'lineasPedidoProducto']);
 // OBTENER TODAS LAS LÍNEAS DE PEDIDOS DE UN PEDIDO EN PARTICULAR    
 Route::get('/lineas/pedido/{id}', [Pedidos_LineasController::class, 'lineasPedido']);
+
+// RUTAS PARA EL FUNCIONAMIENTO DE AGENTES
+// MOSTRAR TODOS LOS AGENTES
+Route::get('/agentes', [AgentesController::class, 'index']);
+// MOSTRAR UN AGENTE EN PARTICULAR
+Route::get('/agentes/{id}', [AgentesController::class, 'show']);
+// CREAR UN NUEVO AGENTE
+Route::post('/agentes', [AgentesController::class, 'store']);
+// EDITAR UN AGENTE EXISTENTE
+Route::put('/agentes/{id}', [AgentesController::class, 'update']);
+// ELIMINAR UN AGENTE
+Route::delete('/agentes/{id}', [AgentesController::class, 'destroy']);
+
+// RUTAS PARA EL FUNCIONAMIENTO DE LAS CARACTERISTICAS DE ARTICULOS
+// MOSTRAR TODAS LAS CARACTERISTICAS DE ARTICULOS
+Route::get('/caracteristicas_articulos', [CaracteristicasArticulosController::class, 'index']);
+// MOSTRAR UN ARTICULO EN PARTICULAR
+Route::get('/caracteristicas_articulos/{id}', [CaracteristicasArticulosController::class, 'show']);
+// CREAR UNA CARACTERISTICA DE ARTICULO
+Route::post('/caracteristicas_articulos', [CaracteristicasArticulosController::class, 'store']);
+// EDITAR UNA CARACTERISTICA DE ARTICULO
+Route::put('/caracteristicas_articulos/{id}', [CaracteristicasArticulosController::class, 'update']);
+// ELIMINAR UN ARTICULO 
+Route::delete('/caracteristicas_articulos/{id}', [CaracteristicasArticulosController::class, 'destroy']);
