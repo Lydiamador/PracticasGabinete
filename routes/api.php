@@ -9,6 +9,14 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatCategoriasController;
 use App\Http\Controllers\CatProductosController;
 use App\Http\Controllers\CatProdVariantesController;
+use App\Http\Controllers\CatTarifaController;
+use App\Http\Controllers\ClientesDireccionesController;
+use App\Http\Controllers\FavoritosController;
+use App\Http\Controllers\GiftPointsController;
+use App\Http\Controllers\PasswordResetTokenController;
+
+
+
 
 // RUTAS PARA EL FUNCIONAMIENTO DE PEDIDOS
 // MOSTRAR TODOS LOS PEDIDOS
@@ -115,3 +123,63 @@ Route::post('/Cat_productos_variantes/{id}', [CatProdVariantesController::class,
 Route::put('/Cat_productos_variantes/{id}/{variante}', [CatProdVariantesController::class, 'update']);
 // ELIMINAR UNA VARIANTE DE PRODUCTO
 Route::delete('/Cat_productos_variantes/{id}/{variante}', [CatProdVariantesController::class, 'destroy']);
+
+// RUTAS PARA EL FUNCIONAMIENTO DE LAS TARIFAS
+// MOSTRAR TODAS LAS TARIFAS
+Route::get('/Cat_tarifas', [CatTarifaController::class, 'index']);
+// MOSTRAR UNA TARIFA
+Route::get('/Cat_tarifas/{id}', [CatTarifaController::class, 'show']);
+// CREAR UNA TARIFA
+Route::post('/Cat_tarifas', [CatTarifaController::class, 'store']);
+// ACTUALIZAR UNA TARIFA
+Route::put('/Cat_tarifas/{id}', [CatTarifaController::class, 'update']);
+// ELIMINAR UNA TARIFA
+Route::delete('/Cat_tarifas/{id}', [CatTarifaController::class, 'destroy']);
+
+// RUTAS PARA EL FUNCIONAMIENTO DE LAS DIRECCIONES DE CLIENTES
+// MOSTRAR TODAS LAS DIRECCIONES DE CLIENTES
+Route::get('/Clientes_direcciones', [ClientesDireccionesController::class, 'index']);
+// MOSTRAR UNA DIRECCIÓN DE CLIENTE
+Route::get('/Clientes_direcciones/{id}', [ClientesDireccionesController::class, 'show']);
+// CREAR UNA DIRECCIÓN DE CLIENTE
+Route::post('/Clientes_direcciones', [ClientesDireccionesController::class, 'store']);
+// ACTUALIZAR UNA DIRECCIÓN DE CLIENTE
+Route::put('/Clientes_direcciones/{id}', [ClientesDireccionesController::class, 'update']);
+// ELIMINAR UNA DIRECCIÓN DE CLIENTE
+Route::delete('/Clientes_direcciones/{id}', [ClientesDireccionesController::class, 'destroy']);
+
+// RUTAS PARA EL FUNCIONAMIENTO DE LOS FAVORITOS
+// MOSTRAR TODOS LOS FAVORITOS DE TODOS LOS USUARIOS
+Route::get('/Favoritos', [FavoritosController::class, 'index']);
+// MOSTRAR LOS FAVORITOS DE UN USUARIO ESPECIFICO
+Route::get('/Favoritos/{id}', [FavoritosController::class, 'show']);
+// CREAR UN NUEVO FAVORITO
+Route::post('/Favoritos', [FavoritosController::class, 'store']);
+// ACTUALIZAR UN FAVORITO
+Route::put('/Favoritos/{id}', [FavoritosController::class, 'update']);
+// ELIMINAR UN FAVORITO
+Route::delete('/Favoritos/{id}', [FavoritosController::class, 'destroy']);
+
+// RUTAS PARA EL FUNCIONAMIENTO DE LOS GIFTPOINTS
+// MOSTRAR TODOS LOS GIFTPOINTS
+Route::get('/GiftPoints', [GiftPointsController::class, 'index']);
+// MOSTRAR UN GIFTPOINT
+Route::get('/GiftPoints/{id}', [GiftPointsController::class, 'show']);
+// CREAR UN GIFTPOINT
+Route::post('/GiftPoints', [GiftPointsController::class, 'store']);
+// ACTUALIZAR UN GIFTPOINT
+Route::put('/GiftPoints/{id}', [GiftPointsController::class, 'update']);
+// ELIMINAR UN GIFTPOINT
+Route::delete('/GiftPoints/{id}', [GiftPointsController::class, 'destroy']);
+
+// RUTAS PARA EL FUNCIONAMIENTO DE LOS TOKENS DE RECUPERACION DE CONTRASEÑA
+// MOSTRAR TODOS LOS TOKENS DE RECUPERACION DE CONTRASEÑA
+Route::get('/PasswordResetToken', [PasswordResetTokenController::class, 'index']);
+// MOSTRAR UN TOKEN DE RECUPERACION DE CONTRASEÑA
+Route::get('/PasswordResetToken/{id}', [PasswordResetTokenController::class, 'show']);
+// CREAR UN TOKEN DE RECUPERACION DE CONTRASEÑA
+Route::post('/PasswordResetToken', [PasswordResetTokenController::class, 'store']);
+// ACTUALIZAR UN TOKEN DE RECUPERACION DE CONTRASEÑA    
+Route::put('/PasswordResetToken/{id}', [PasswordResetTokenController::class, 'update']);
+// ELIMINAR UN TOKEN DE RECUPERACION DE CONTRASEÑA
+Route::delete('/PasswordResetToken/{id}', [PasswordResetTokenController::class, 'destroy']);
