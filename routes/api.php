@@ -14,8 +14,12 @@ use App\Http\Controllers\ClientesDireccionesController;
 use App\Http\Controllers\FavoritosController;
 use App\Http\Controllers\GiftPointsController;
 use App\Http\Controllers\PasswordResetTokenController;
-
-
+use App\Http\Controllers\Qanet_ArticuloController;
+use App\Http\Controllers\Qanet_ArticuloBarController;
+use App\Http\Controllers\Qanet_ArticuloIdiController;
+use App\Http\Controllers\Qanet_ArticuloingController;
+use App\Http\Controllers\Qanet_ArticuloqtpvController;
+use App\Http\Controllers\QanetCajaController;
 
 
 // RUTAS PARA EL FUNCIONAMIENTO DE PEDIDOS
@@ -183,3 +187,75 @@ Route::post('/PasswordResetToken', [PasswordResetTokenController::class, 'store'
 Route::put('/PasswordResetToken/{id}', [PasswordResetTokenController::class, 'update']);
 // ELIMINAR UN TOKEN DE RECUPERACION DE CONTRASEÑA
 Route::delete('/PasswordResetToken/{id}', [PasswordResetTokenController::class, 'destroy']);
+
+//RUTAS PARA EL CONTROLADOR DE ARTICULOS
+//MOSTRAR TODOS LOS ARTICULOS
+Route::get('/Qanet_Articulo', [Qanet_ArticuloController::class, 'index']);
+//MOSTRAR UN ARTICULO
+Route::get('/Qanet_Articulo/{id}', [Qanet_ArticuloController::class, 'show']);
+//CREAR ARTICULO
+Route::post('/Qanet_Articulo', [Qanet_ArticuloController::class, 'store']);
+//ACTUALIZAR ARTICULO    
+Route::put('/Qanet_Articulo/{id}', [Qanet_ArticuloController::class, 'update']);
+//ELIMINAR ARTICULO     
+Route::delete('/Qanet_Articulo/{id}', [Qanet_ArticuloController::class, 'destroy']);
+
+// RUTAS PARA EL CONTROLADOR DE ARTICULOS BAR
+// MOSTRAR TODOS LOS ARTICULOS BAR
+Route::get('/Qanet_ArticuloBar', [Qanet_ArticuloBarController::class, 'index']);
+// MOSTRAR UN ARTICULO BAR
+Route::get('/Qanet_ArticuloBar/{id}', [Qanet_ArticuloBarController::class, 'show']);
+// CREAR ARTICULO BAR
+Route::post('/Qanet_ArticuloBar', [Qanet_ArticuloBarController::class, 'store']);
+// ACTUALIZAR ARTICULO BAR
+Route::put('/Qanet_ArticuloBar/{id}', [Qanet_ArticuloBarController::class, 'update']);
+// ELIMINAR ARTICULO BAR
+Route::delete('/Qanet_ArticuloBar/{id}', [Qanet_ArticuloBarController::class, 'destroy']);
+
+// RUTAS PARA EL CONTROLADOR DE ARTICULOS IDI
+// MOSTRAR TODOS LOS ARTICULOS IDI
+Route::get('/Qanet_ArticuloIdi', [Qanet_ArticuloIdiController::class, 'index']);
+// MOSTRAR UN ARTICULO IDI
+Route::get('/Qanet_ArticuloIdi/{id}', [Qanet_ArticuloIdiController::class, 'show']);
+// CREAR ARTICULO IDI   
+Route::post('/Qanet_ArticuloIdi', [Qanet_ArticuloIdiController::class, 'store']);
+// ACTUALIZAR ARTICULO IDI  
+Route::put('/Qanet_ArticuloIdi/{id}', [Qanet_ArticuloIdiController::class, 'update']);
+// ELIMINAR ARTICULO IDI   
+Route::delete('/Qanet_ArticuloIdi/{id}', [Qanet_ArticuloIdiController::class, 'destroy']);
+
+// RUTAS PARA EL CONTROLADOR DE ARTICULOS ING
+// MOSTRAR TODOS LOS ARTICULOS ING
+Route::get('/Qanet_Articuloing', [Qanet_ArticuloingController::class, 'index']);
+// MOSTRAR UN ARTICULO ING
+Route::get('/Qanet_Articuloing/{id}', [Qanet_ArticuloingController::class, 'show']);
+// CREAR ARTICULO ING
+Route::post('/Qanet_Articuloing', [Qanet_ArticuloingController::class, 'store']);
+// ACTUALIZAR ARTICULO ING
+Route::put('/Qanet_Articuloing/{id}', [Qanet_ArticuloingController::class, 'update']);
+// ELIMINAR ARTICULO ING
+Route::delete('/Qanet_Articuloing/{id}', [Qanet_ArticuloingController::class, 'destroy']);
+
+// RUTAS PARA EL CONTROLADOR DE ARTICULOS QTPV
+// MOSTRAR TODOS LOS ARTICULOS QTPV
+Route::get('/Qanet_Articuloqtpv', [Qanet_ArticuloqtpvController::class, 'index']);
+// MOSTRAR UN ARTICULO QTPV
+Route::get('/Qanet_Articuloqtpv/{id}', [Qanet_ArticuloqtpvController::class, 'show']);
+// CREAR ARTICULO QTPV
+Route::post('/Qanet_Articuloqtpv', [Qanet_ArticuloqtpvController::class, 'store']);
+// ACTUALIZAR ARTICULO QTPV
+Route::put('/Qanet_Articuloqtpv/{id}', [Qanet_ArticuloqtpvController::class, 'update']);
+// ELIMINAR ARTICULO QTPV   
+Route::delete('/Qanet_Articuloqtpv/{id}', [Qanet_ArticuloqtpvController::class, 'destroy']);
+
+// RUTAS PARA EL CONTROLADOR DE CAJAS
+// MOSTRAR TODOS LOS CAJAS
+Route::get('/Qanet_Caja', [QanetCajaController::class, 'index']);
+// MOSTRAR UN CAJA
+Route::get('/Qanet_Caja/{id}', [QanetCajaController::class, 'show']);
+// CREAR CAJA
+Route::post('/Qanet_Caja', [QanetCajaController::class, 'store']);
+// ACTUALIZAR CAJA
+Route::put('/Qanet_Caja/{id}', [QanetCajaController::class, 'update']);
+// ELIMINAR CAJA
+Route::delete('/Qanet_Caja/{id}', [QanetCajaController::class, 'destroy']);
