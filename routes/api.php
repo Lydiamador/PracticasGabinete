@@ -1,10 +1,11 @@
 <?php
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\Pedidos_LineasController;
-
+use Illuminate\Http\Request;
+use App\Http\Controllers\Api\UserController;
 // RUTAS PARA EL FUNCIONAMIENTO DE PEDIDOS
 // MOSTRAR TODOS LOS PEDIDOS
 Route::get('/pedidos', [PedidosController::class, 'index']);
@@ -36,13 +37,53 @@ Route::get('/lineas/cliente/{cliente_id}', [Pedidos_LineasController::class, 'li
 Route::get('/lineas/producto/{producto_id}', [Pedidos_LineasController::class, 'lineasPedidoProducto']);
 // OBTENER TODAS LAS LÍNEAS DE PEDIDOS DE UN PEDIDO EN PARTICULAR    
 Route::get('/lineas/pedido/{id}', [Pedidos_LineasController::class, 'lineasPedido']);
-=======
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\UserController;
 
+//RUTAS DE LA TABLA USERS
 Route::apiResource('users', UserController::class);
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
->>>>>>> bcd68c6 (Version 3)
+
+//RUTAS DE LA TABLA USERS_GIF_POINTS
+Route::apiResource('users_gif_points', User_gif_points_Controller::class);
+
+//RUTAS DE LA TABLA USERS_LOG
+Route::apiResource('users_log', User_log_Controller::class);
+
+//RUTA DE LA TABAL USERS_QANET
+Route::apiResource('users_qanet', User_qanet_Controller::class);
+
+//RUTAS DE LA TABLA USERS_SUPPORT
+Route::apiResource('users_support', User_support_Controller::class);
+
+//RUTAS DE LA TABLA USERS_SUPPORT_DETAILS
+Route::apiResource('users_support_details', Users_support_details_Controller::class);
+
+//RUTAS DE LA TABLA QTARIFA
+Route::apiResource('qtarifa', q_tarifa_Controller::class);
+
+//RUTAS DE LA TABLA QOFERTAC
+Route::apiResource('qofertac', q_ofertac_Controller::class);
+
+//RUTAS DE LA TABLA QMARCA
+Route::apiResource('qmarca', q_marca_Controller::class);
+
+//RUTAS DE LA TABLA QETIQUETA
+Route::apiResource('qetiqueta', q_etiqueta_Controller::class);
+
+//RUTAS DE LA TABLA QDOCUMENTO_FICHERO
+Route::apiResource('qdocumento_fichero', q_documento_fichero_Controller::class);
+
+//RUTAS DE LA TABLA QDOCUMENTO
+Route::apiResource('qdocumento', q_documento_Controller::class);
+
+//RUTASDE LA TABLA QCATEGORIA
+Route::apiResource('qcategoria', q_categoria_Controller::class);
+
+//RUTAS DE LA TABLA QARTICULO
+Route::apiResource('qarticulo', q_articulo_Controller::class);
+//RUTAS DE LA TABLA QARTICULO_BARRA
+Route::apiResource('qarticulo_barra', q_articulo_barra_Controller::class);
+//RUTAS DE LA TABLA QARTICULO_ETIQUETA
+Route::apiResource('qarticulo_etiqueta', q_articulo_etiqueta_Controller::class);
+
+//RUTAS DE LA TABLA QARTICULO_IMAGEN
+Route::apiResource('qarticulo_imagen', q_articulo_imagen_Controller::class);
+

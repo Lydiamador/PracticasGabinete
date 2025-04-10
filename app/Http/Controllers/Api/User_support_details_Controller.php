@@ -1,0 +1,76 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class User_support_details_Controller extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        return User_support_details::all();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'id_user_support' => 'nullable|integer|max:11',
+            'tecnico'=> 'nullable|string|max:255',
+            'observaciones'=>'nullable|string',
+            'tiempo_uso' => 'nullable|time',
+            'created_at'=> 'nullable|timestamp',
+            'update_at'=>'nullable|timestamp',
+        ]);
+
+        $user= User_support_details::create($data);
+
+        return response()-> json($user);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $user=User_support_details::findOrFail($id);
+        return response()->json($user);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $user=User_support_details::findOrFail($id);
+        $data = $request->validate([
+            'id_user_support' => 'nullable|integer|max:11',
+            'tecnico'=> 'nullable|string|max:255',
+            'observaciones'=>'nullable|string',
+            'tiempo_uso' => 'nullable|time',
+            'created_at'=> 'nullable|timestamp',
+            'update_at'=>'nullable|timestamp',
+        ]);
+
+        $user->update($data);
+
+        return response()-> json($user);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+       
+        $user= User_support_details::findOrFail($id);
+        $user->delete();
+        return response()-> json(['mensaje','El usuario ha sido eliminado correctamente.']);
+    }
+}

@@ -46,6 +46,7 @@ class UserController extends Controller
 
         //Creamos el nuevo usuario con los datos validados
         $user = User::create($data);
+        
         //devolvemos el cliente creado con un código 201 en json. 
         return response()->json($user,201);
     }
@@ -55,8 +56,15 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
+        $user = User::find($sid);
+        //Comporbamos que el ID existe.
+        if (!($user)){
+            abort(404,"No existe el cliente con ese ID");
+        }
+        
         //Devolvemos el cliente al que pertenece el id
-        return User::findOrFail($id);
+        return $user;
+        
     }
 
     /**
@@ -64,7 +72,6 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
         $user = User::findOrFail($id);
 
         $data= $request = validate([
@@ -89,7 +96,7 @@ class UserController extends Controller
         ]); 
 
         $user->update($data);
-        return response->json($user);
+        return response()->json($user);
     }
 
     /**
@@ -102,6 +109,6 @@ class UserController extends Controller
         //Se borrar dicho usuario
         $user = delete();
         //Devolvemos un mensaje de informacón 
-        return response->json(['mensaje' => 'Cliente eliminado correctamente.']);
+        return response()->json(['mensaje' => 'Cliente eliminado correctamente.']);
     }
 }
