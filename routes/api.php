@@ -5,6 +5,8 @@ use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\Pedidos_LineasController;
 use App\Http\Controllers\AgentesController;
 use App\Http\Controllers\CaracteristicasArticulosController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CatCategoriasController;
 
 // RUTAS PARA EL FUNCIONAMIENTO DE PEDIDOS
 // MOSTRAR TODOS LOS PEDIDOS
@@ -61,3 +63,29 @@ Route::post('/caracteristicas_articulos', [CaracteristicasArticulosController::c
 Route::put('/caracteristicas_articulos/{id}', [CaracteristicasArticulosController::class, 'update']);
 // ELIMINAR UN ARTICULO 
 Route::delete('/caracteristicas_articulos/{id}', [CaracteristicasArticulosController::class, 'destroy']);
+
+// RUTAS PARA EL FUNCIONAMIENTO DEL CARRITO
+// MOSTRAR TODOS LOS PRODUCTOS DEL CARRITO
+Route::get('/cart', [CartController::class, 'index']);
+// MOSTRAR UN PRODUCTO DEL CARRITO
+Route::get('/cart/{id}', [CartController::class, 'show']);
+// CREAR UN NUEVO PRODUCTO DEL CARRITO
+Route::post('/cart', [CartController::class, 'store']);
+// ACTUALIZAR UN PRODUCTO DEL CARRITO
+Route::put('/cart/{id}', [CartController::class, 'update']);
+// ELIMINAR UN PRODUCTO DEL CARRITO
+Route::delete('/cart/{id}', [CartController::class, 'destroy']);
+
+// RUTAS PARA EL FUNCIONAMIENTO DE LAS CATEGORIAS DEl CARRO
+// LISTAR TODAS LAS CATEGORIAS DEL CARRO
+Route::get('/cat_categorias', [CatCategoriasController::class, 'index']);
+// LISTAR UNA CATEGORÍA SOLA DEL CARRO
+Route::get('/cat_categorias/{id}', [CatCategoriasController::class, 'show']);
+// CREAR UNA CATEGORÍA
+Route::post('/cat_categorias', [CatCategoriasController::class, 'store']);
+// ACTUALIZAR UNA CATEGORÍA
+Route::put('/cat_categorias/{id}', [CatCategoriasController::class, 'update']);
+// ELIMINAR UNA CATEGORÍA
+Route::delete('/cat_categorias/{id}', [CatCategoriasController::class, 'destroy']);
+// BUSCAR UNA CATEGORÍA ESPECIFICA EN TODOS LOS CARRITOS    
+Route::get('/cat_categorias/search/{id}', [CatCategoriasController::class, 'search']);
