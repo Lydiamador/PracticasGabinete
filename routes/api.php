@@ -20,7 +20,14 @@ use App\Http\Controllers\Qanet_ArticuloIdiController;
 use App\Http\Controllers\Qanet_ArticuloingController;
 use App\Http\Controllers\Qanet_ArticuloqtpvController;
 use App\Http\Controllers\QanetCajaController;
-
+use App\Http\Controllers\QanetClienteController;
+use App\Http\Controllers\QanetCliente_AgendaController;
+use App\Http\Controllers\Qanet_ClienteArticuloController;
+use App\Http\Controllers\Qanet_ClienteCategoriaController;
+use App\Http\Controllers\Qanet_ClienteGrupoController;
+use App\Http\Controllers\Qanet_DelegacionController;
+use App\Http\Controllers\Qanet_EstadisticaController;
+use App\Http\Controllers\Qanet_ExtraController;
 
 // RUTAS PARA EL FUNCIONAMIENTO DE PEDIDOS
 // MOSTRAR TODOS LOS PEDIDOS
@@ -259,3 +266,99 @@ Route::post('/Qanet_Caja', [QanetCajaController::class, 'store']);
 Route::put('/Qanet_Caja/{id}', [QanetCajaController::class, 'update']);
 // ELIMINAR CAJA
 Route::delete('/Qanet_Caja/{id}', [QanetCajaController::class, 'destroy']);
+
+// RUTAS PARA EL CONTROLADOR DE CLIENTES QANET
+// MOSTRAR TODOS LOS CLIENTES QANET
+Route::get('/Qanet_Cliente', [QanetClienteController::class, 'index']);
+// MOSTRAR UN CLIENTE QANET
+Route::get('/Qanet_Cliente/{id}', [QanetClienteController::class, 'show']);
+// CREAR CLIENTE QANET
+Route::post('/Qanet_Cliente', [QanetClienteController::class, 'store']);
+// ACTUALIZAR CLIENTE QANET
+Route::put('/Qanet_Cliente/{id}', [QanetClienteController::class, 'update']);
+// ELIMINAR CLIENTE QANET
+Route::delete('/Qanet_Cliente/{id}', [QanetClienteController::class, 'destroy']);
+
+// RUTAS PARA EL CONTROLADOR DE AGENDA DE CLIENTES QANET
+// MOSTRAR TODOS LA AGENDA DE CLIENTES QANET
+Route::get('/QanetCliente_Agenda', [QanetCliente_AgendaController::class, 'index']);
+// MOSTRAR LA AGENDA DE CLIENTES QANET
+Route::get('/QanetCliente_Agenda/{id}', [QanetCliente_AgendaController::class, 'show']);
+// CREAR AGENDA DE CLIENTES QANET
+Route::post('/QanetCliente_Agenda', [QanetCliente_AgendaController::class, 'store']);
+// ACTUALIZAR AGENDA DE CLIENTES QANET
+Route::put('/QanetCliente_Agenda/{id}', [QanetCliente_AgendaController::class, 'update']);
+// ELIMINAR AGENDA DE CLIENTES QANET
+Route::delete('/QanetCliente_Agenda/{id}', [QanetCliente_AgendaController::class, 'destroy']);
+
+// RUTAS PARA EL CONTROLADOR DE ARTICULOS DE CLIENTES QANET
+// MOSTRAR TODOS LOS ARTICULOS DE CLIENTES QANET
+Route::get('/Qanet_Cliente_Articulo', [Qanet_ClienteArticuloController::class, 'index']);
+// MOSTRAR ARTICULO DE CLIENTES QANET
+Route::get('/Qanet_Cliente_Articulo/{id}', [Qanet_ClienteArticuloController::class, 'show']);
+// CREAR ARTICULO DE CLIENTES QANET
+Route::post('/Qanet_Cliente_Articulo', [Qanet_ClienteArticuloController::class, 'store']);
+// ACTUALIZAR ARTICULO DE CLIENTES QANET
+Route::put('/Qanet_Cliente_Articulo/{id}', [Qanet_ClienteArticuloController::class, 'update']);
+// ELIMINAR ARTICULO DE CLIENTES QANET
+Route::delete('/Qanet_Cliente_Articulo/{id}', [Qanet_ClienteArticuloController::class, 'destroy']);
+
+//RUTAS PARA EL CONTROLADOR DE CATEGORIAS DE CLIENTES QANET
+// MOSTRAR TODOS LAS QANET CATEGORIAS DE LOS CLIENTES
+Route::get('/Qanet_Cliente_Categoria', [Qanet_ClienteCategoriaController::class, 'index']);
+// MOSTRAR UNA CATEGORIA DE CLIENTES QANET
+Route::get('/Qanet_Cliente_Categoria/{id}', [Qanet_ClienteCategoriaController::class, 'show']);
+// CREAR UNA CATEGORIA DE CLIENTES QANET
+Route::post('/Qanet_Cliente_Categoria', [Qanet_ClienteCategoriaController::class, 'store']);
+// ACTUALIZAR UNA CATEGORIA DE CLIENTES QANET
+Route::put('/Qanet_Cliente_Categoria/{id}', [Qanet_ClienteCategoriaController::class, 'update']);
+// ELIMINAR UNA CATEGORIA DE CLIENTES QANET
+Route::delete('/Qanet_Cliente_Categoria/{id}', [Qanet_ClienteCategoriaController::class, 'destroy']);
+
+// RUTAS PARA EL CONTROLADOR DE GRUPOS DE CLIENTES QANET
+// MOSTRAR TODOS LOS GRUPOS DE CLIENTES QANET
+Route::get('/Qanet_Cliente_Grupo', [Qanet_ClienteGrupoController::class, 'index']);
+// MOSTRAR UN GRUPO DE CLIENTES QANET
+Route::get('/Qanet_Cliente_Grupo/{id}', [Qanet_ClienteGrupoController::class, 'show']);
+// CREAR UN GRUPO DE CLIENTES QANET
+Route::post('/Qanet_Cliente_Grupo', [Qanet_ClienteGrupoController::class, 'store']);
+// ACTUALIZAR UN GRUPO DE CLIENTES QANET
+Route::put('/Qanet_Cliente_Grupo/{id}', [Qanet_ClienteGrupoController::class, 'update']);
+// ELIMINAR UN GRUPO DE CLIENTES QANET
+Route::delete('/Qanet_Cliente_Grupo/{id}', [Qanet_ClienteGrupoController::class, 'destroy']);
+
+// RUTAS PARA EL CONTROLADOR DE DELEGACIONES
+// MOSTRAR TODOS LAS DELEGACIONES
+Route::get('/Qanet_Delegacion', [Qanet_DelegacionController::class, 'index']);
+// MOSTRAR UNA DELEGACIÓN
+Route::get('/Qanet_Delegacion/{id}', [Qanet_DelegacionController::class, 'show']);
+// CREAR UNA DELEGACIÓN
+Route::post('/Qanet_Delegacion', [Qanet_DelegacionController::class, 'store']);
+// ACTUALIZAR UNA DELEGACIÓN
+Route::put('/Qanet_Delegacion/{id}', [Qanet_DelegacionController::class, 'update']);
+// ELIMINAR UNA DELEGACIÓN
+Route::delete('/Qanet_Delegacion/{id}', [Qanet_DelegacionController::class, 'destroy']);
+
+// RUTAS PARA EL CONTROLADOR DE ESTADISTICAS
+// MOSTRAR TODOS LAS ESTADISTICAS
+Route::get('/Qanet_Estadistica', [Qanet_EstadisticaController::class, 'index']);
+// MOSTRAR UNA ESTADISTICA
+Route::get('/Qanet_Estadistica/{id}', [Qanet_EstadisticaController::class, 'show']);
+// CREAR UNA ESTADISTICA    
+Route::post('/Qanet_Estadistica', [Qanet_EstadisticaController::class, 'store']);
+// ACTUALIZAR UNA ESTADISTICA
+Route::put('/Qanet_Estadistica/{id}', [Qanet_EstadisticaController::class, 'update']);
+// ELIMINAR UNA ESTADISTICA
+Route::delete('/Qanet_Estadistica/{id}', [Qanet_EstadisticaController::class, 'destroy']);
+
+// RUTAS PARA EL CONTROLADOR DE EXTRAS
+// MOSTRAR TODOS LOS EXTRAS
+Route::get('/Qanet_Extra', [Qanet_ExtraController::class, 'index']);
+// MOSTRAR UN EXTRA
+Route::get('/Qanet_Extra/{id}', [Qanet_ExtraController::class, 'show']);
+// CREAR UN EXTRA
+Route::post('/Qanet_Extra', [Qanet_ExtraController::class, 'store']);
+// ACTUALIZAR UN EXTRA
+Route::put('/Qanet_Extra/{id}', [Qanet_ExtraController::class, 'update']);
+// ELIMINAR UN EXTRA    
+Route::delete('/Qanet_Extra/{id}', [Qanet_ExtraController::class, 'destroy']);
