@@ -25,12 +25,13 @@ use App\Http\Controllers\Api\q_articulo_precio_Controller;
 use App\Http\Controllers\Api\q_articulo_imagen_Controller;
 use App\Http\Controllers\Api\qanet_representante_Controller;
 use App\Http\Controllers\Api\qanet_pedidos_Controller;
-use App\Http\Controllers\Api\qanet_pedidos__lineas_Controller;
+use App\Http\Controllers\Api\qanet_pedidos_lineas_Controller;
 use App\Http\Controllers\Api\qanet_parametro2_Controller;
-use App\Htpp\Controllers\Api\qanet_palet_Controller;
-use App\Htpp\Controllers\Api\qanet_oferta_express_Controller;
-use App\Htpp\Controllers\Api\qanet_listaprecios_Controller;
-use App\Htpp\Controllers\Api\qanet_familiaqtpv_Controller;
+use App\Http\Controllers\Api\qanet_palet_Controller;
+use App\Http\Controllers\Api\qanet_oferta_express_Controller;
+use App\Http\Controllers\Api\qanet_listaprecios_Controller;
+use App\Http\Controllers\Api\qanet_familiaqtpv_Controller;
+
 // RUTAS PARA EL FUNCIONAMIENTO DE PEDIDOS
 // MOSTRAR TODOS LOS PEDIDOS
 Route::get('/pedidos', [PedidosController::class, 'index']);
@@ -80,7 +81,7 @@ Route::apiResource('users_qanet', User_qanet_Controller::class);
 Route::apiResource('users_support', User_support_Controller::class);
 
 //RUTAS DE LA TABLA USERS_SUPPORT_DETAILS
-Route::apiResource('users_support_details', Users_support_details_Controller::class);
+Route::apiResource('users_support_details', User_support_details_Controller::class);
 
 //RUTAS DE LA TABLA QTARIFA
 Route::apiResource('qtarifa', q_tarifa_Controller::class);
@@ -114,14 +115,14 @@ Route::apiResource('qarticulo_etiqueta', q_articulo_etiqueta_Controller::class);
 Route::apiResource('qarticulo_imagen', q_articulo_imagen_Controller::class);
 
 //RUTAS DE LA TABLA QARTICULO_PRECIO
-Route::apiResource('qarticulo_precio', q_articulo__precio_Controller::class);
+Route::apiResource('qarticulo_precio', q_articulo_precio_Controller::class);
 
 //RUTAS DE LA TABLA QANET_REPRESENTANTES
 Route::apiResource('qanet_representante', qanet_representante_Controller::class);
 //RUTAS DE LA TABLA QANET_PEDIDOS
 Route::apiResource('qanet_pedidos', qanet_pedidos_Controller::class);
 //RUTAS DE LA TABLA QANET_PEDIDOS_LINEAS
-Route::apiResource('qanet_pedidos_lineas', qanet_pedidos__lineas_Controller::class);
+Route::apiResource('qanet_pedidos_lineas', qanet_pedidos_lineas_Controller::class);
 //RUTAS DE LA TABLA QANET_PARAMETRO2
 Route::apiResource('qanet_parametro2',qanet_parametro2_Controller::class);
 

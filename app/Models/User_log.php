@@ -21,7 +21,7 @@ class User_log extends Model
     {
         return [
             'fechorentrada' => 'datetime',
-            'fechorsalida' => 'datatime'
+            'fechorsalida' => 'datetime'
         ];
     }
 }

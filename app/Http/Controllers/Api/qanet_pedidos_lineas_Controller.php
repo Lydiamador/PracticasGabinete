@@ -53,7 +53,7 @@ class qanet_pedidos_lineas_Controller extends Controller
     {
         $pedLinea= qanet_pedidos_lineas::findOrFail($id);
         $pedLinea->delete();
-        return response()->json(['mensaje'=>'El pedido en linia ha sido borrado correctamente.'],200);
+        return response()->json(['mensaje'=>'El pedido en linia ha sido borrado correctamente.']);
 
     }
 

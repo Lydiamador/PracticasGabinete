@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User_gif_pointss;
+use App\Models\User_gif_points;
 class User_gif_points_Controller extends Controller
 {
     /**
