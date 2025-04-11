@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\q_articulo_precio;
 
 class q_articulo_precio_Controller extends Controller
 {
@@ -12,7 +13,7 @@ class q_articulo_precio_Controller extends Controller
      */
     public function index()
     {
-        return q_artidulo_precio::all();
+        return q_articulo_precio::all();
     }
 
     /**
@@ -23,8 +24,8 @@ class q_articulo_precio_Controller extends Controller
         $data=$request->validate([
             'preartcod' => 'required|string|max:10',
             'pretarcod' => 'required|string|max:3',
-            'preimp'=> 'nullable|float',
-            'preimp2'=>'required|float'
+            'preimp'=> 'nullable|numeric',
+            'preimp2'=>'required|numeric'
         ]);
 
         $preart = q_articulo_precio::create($data);
@@ -45,13 +46,13 @@ class q_articulo_precio_Controller extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $preart = q_articulo_precio::create($data);
+        $preart = q_articulo_precio::findOrFail($data);
 
         $data=$request->validate([
             'preartcod' => 'required|string|max:10',
             'pretarcod' => 'required|string|max:3',
-            'preimp'=> 'nullable|float',
-            'preimp2'=>'required|float'
+            'preimp'=> 'nullable|numeric',
+            'preimp2'=>'required|numeric'
         ]);
         $preart->update($data);
 
@@ -65,6 +66,6 @@ class q_articulo_precio_Controller extends Controller
     {
         $preart = q_articulo_precio::findOrfail($id);
         $preart->delete();
-        return response()->json(['mensaje','El precio del artivulo ha sido eliminado.']);
+        return response()->json(['mensaje'=>'El precio del articulo ha sido eliminado.']);
     }
 }

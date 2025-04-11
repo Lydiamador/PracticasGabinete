@@ -13,7 +13,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     //Indicamod el nombre de la tabla que se va a usar
-    protected $table="users";
+    protected $table='users';
 
     //Especificamos los campos que la componen
     protected $fillable = [

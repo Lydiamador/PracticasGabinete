@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\q_documento;
 class q_documento_Controller extends Controller
 {
     /**
@@ -90,6 +90,6 @@ class q_documento_Controller extends Controller
     {
         $doc = q_documento::findOrFail($id);
         $doc->delete();
-        return response()->json(['mensaje','Documento eliminado correctamente.']);
+        return response()->json(['mensaje'=>'Documento eliminado correctamente.']);
     }
 }

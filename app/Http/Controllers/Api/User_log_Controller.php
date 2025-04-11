@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\User_log;
 class User_log_Controller extends Controller
 {
     /**
@@ -24,9 +24,9 @@ class User_log_Controller extends Controller
             'name' => 'nullable|string|max:255',
             'email'=> 'nullable|string|max:255',
             'usuclicod'=> 'nullable|string|max:255',
-            'usucencod'=> 'nullable|string|maz:4',
-            'fechorentrada'=> 'nullable|timestamp',
-            'fechorsalida'=> 'nullable|timestamp'
+            'usucencod'=> 'nullable|string|max:4',
+            'fechorentrada'=> 'nullable|date',
+            'fechorsalida'=> 'nullable|date'
         ]);
 
         $user = User_log::create($data);
@@ -39,11 +39,8 @@ class User_log_Controller extends Controller
      */
     public function show(string $id)
     {
-        $user = User_log::find($id);
-        if (!$user){
-            abort(404,"El usurio no cliente no existe");
-        }
-
+        $user = User_log::findOrFail($id);
+        
         return response()->json($user);
     }
 
@@ -52,23 +49,19 @@ class User_log_Controller extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $user = User_log::find($id);
-        if (!$user){
-            abort(404,"El usurio no cliente no existe");
-        } 
-
+        $user = User_log::findOrFail($id);
+       
         $data=$request -> validate([
             'name' => 'nullable|string|max:255',
             'email'=> 'nullable|string|max:255',
             'usuclicod'=> 'nullable|string|max:255',
-            'usucencod'=> 'nullable|string|maz:4',
-            'fechorentrada'=> 'nullable|timestamp',
-            'fechorsalida'=> 'nullable|timestamp'
+            'usucencod'=> 'nullable|string|max:4',
+            'fechorentrada'=> 'nullable|date',
+            'fechorsalida'=> 'nullable|date'
         ]);
 
         $user->update($data);
-
-        return reponse()->json($user);
+        return response()->json($user);
     }
 
     /**
@@ -78,8 +71,8 @@ class User_log_Controller extends Controller
     {
         $user = User_log::findOrFail($id);
 
-        $user->delete;
+        $user->delete();
 
-        return response()->json(['mensaje','Cliente eliminado correctamente.']);
+        return response()->json(['mensaje'=>'Cliente eliminado correctamente.']);
     }
 }

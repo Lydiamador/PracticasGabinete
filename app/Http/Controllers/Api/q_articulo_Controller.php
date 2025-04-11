@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\q_articulo;
 class q_articulo_Controller extends Controller
 {
     /**
@@ -100,6 +100,6 @@ class q_articulo_Controller extends Controller
     {
         $art = q_articulo::findOrFail($id);
         $art->delete();
-        return response()->json(['mensaje','El articulo ha sicho eliminado.']);
+        return response()->json(['mensaje'=>'El articulo ha sicho eliminado.']);
     }
 }

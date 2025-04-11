@@ -26,8 +26,8 @@ class User_support extends Model
       'evidencia4',
       'evidencia5',
       'estado',
-      'create_at',
-      'update_at',
+      'created_at',
+      'updated_at',
       'id_agente'
     ];
 

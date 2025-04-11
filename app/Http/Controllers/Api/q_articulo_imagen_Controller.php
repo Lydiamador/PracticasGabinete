@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\q_articulo_imagen;
 class q_articulo_imagen_Controller extends Controller
 {
     /**
@@ -65,6 +65,6 @@ class q_articulo_imagen_Controller extends Controller
     {
         $imaart = q_articulo_imagen::findOrFail($id);
         $imaart->delete();
-        return response()->json(['mensaje','Imagen de articulo eliminada.']);
+        return response()->json(['mensaje'=>'Imagen de articulo eliminada.']);
     }
 }

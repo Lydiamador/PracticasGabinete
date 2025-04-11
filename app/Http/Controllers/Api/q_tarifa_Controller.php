@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\q_tarifa;
 class q_tarifa_Controller extends Controller
 {
     /**
@@ -62,6 +62,6 @@ class q_tarifa_Controller extends Controller
     {
         $tarifa= q_tarifa::findOrFail($id);
         $tarifa->delete();
-        return response()->json(['mensaje', 'La tarifa ha sido eliminada correctamente.']);
+        return response()->json(['mensaje'=>'La tarifa ha sido eliminada correctamente.']);
     }
 }
