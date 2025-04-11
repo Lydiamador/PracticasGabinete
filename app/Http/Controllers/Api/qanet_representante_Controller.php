@@ -12,7 +12,7 @@ class qanet_representante_Controller extends Controller
      */
     public function index()
     {
-        
+        return qanet_representante::all();
     }
 
     /**
@@ -20,7 +20,22 @@ class qanet_representante_Controller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data=$request->validate([
+            'rprcod' => 'required|string|max:15',
+            'rprnom'=>'required|string|max:50',
+            'rprema'=>'required|string|max:50',
+            'rprdelcod'=>'required|string|max:15',
+            'rprsyn'=>'required|string|size:1',
+            'rpralmcod'=>'required|string|size:15',
+            'rprtarcod'=>'required|string|size:3',
+            'rprporcom'=>'required|numeric',
+            'rprporcom2'=>'required|numeric',
+            'rprtel'=>'required|string|max:50'
+        ]);
+
+        $repre = qanet_representante::create($repre);
+
+        return response()->json($repre,201);
     }
 
     /**
@@ -28,7 +43,9 @@ class qanet_representante_Controller extends Controller
      */
     public function show(string $id)
     {
-        //
+        $repre = qanet_representante::findOrFail($id);
+
+        return response()->json($repre);
     }
 
     /**
@@ -36,7 +53,23 @@ class qanet_representante_Controller extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $repre = qanet_representante::findOrFail($id);
+
+        $data=$request->validate([
+            'rprcod' => 'required|string|max:15',
+            'rprnom'=>'required|string|max:50',
+            'rprema'=>'required|string|max:50',
+            'rprdelcod'=>'required|string|max:15',
+            'rprsyn'=>'required|string|size:1',
+            'rpralmcod'=>'required|string|size:15',
+            'rprtarcod'=>'required|string|size:3',
+            'rprporcom'=>'required|float',
+            'rprporcom2'=>'required|float',
+            'rprtel'=>'required|string|max:50'
+        ]);
+        $repre->update($data);
+
+        return response()->json($repre);
     }
 
     /**
@@ -44,6 +77,8 @@ class qanet_representante_Controller extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $repre = qanet_representante::findOrFail($id);
+        $repre->delete();
+        return response()->json(['mensaje'=>'El representante ha sido eliminado correctamente'],200);
     }
 }

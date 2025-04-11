@@ -19,7 +19,8 @@ class User_support_details extends Model
     {
         return [
             'created_at' => 'datetime',
-            'updated_at' => 'datetime'
+            'updated_at' => 'datetime',
+            'tiempo_uso' => 'datetime'
         ];
     }
 }

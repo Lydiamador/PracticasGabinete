@@ -23,6 +23,14 @@ use App\Http\Controllers\Api\q_articulo_barra_Controller;
 use App\Http\Controllers\Api\q_articulo_etiqueta_Controller;
 use App\Http\Controllers\Api\q_articulo_precio_Controller;
 use App\Http\Controllers\Api\q_articulo_imagen_Controller;
+use App\Http\Controllers\Api\qanet_representante_Controller;
+use App\Http\Controllers\Api\qanet_pedidos_Controller;
+use App\Http\Controllers\Api\qanet_pedidos__lineas_Controller;
+use App\Http\Controllers\Api\qanet_parametro2_Controller;
+use App\Htpp\Controllers\Api\qanet_palet_Controller;
+use App\Htpp\Controllers\Api\qanet_oferta_express_Controller;
+use App\Htpp\Controllers\Api\qanet_listaprecios_Controller;
+use App\Htpp\Controllers\Api\qanet_familiaqtpv_Controller;
 // RUTAS PARA EL FUNCIONAMIENTO DE PEDIDOS
 // MOSTRAR TODOS LOS PEDIDOS
 Route::get('/pedidos', [PedidosController::class, 'index']);
@@ -34,6 +42,7 @@ Route::post('/pedidos', [PedidosController::class, 'store']);
 Route::put('/pedidos/{id}', [PedidosController::class, 'update']);
 // ELIMINAR UN PEDIDO
 Route::delete('/pedidos/{id}', [PedidosController::class, 'destroy']);
+
 // OBTENER TODOS LOS PEDIDOS DE UN CLIENTE
 Route::get('/pedidos/cliente/{cliente_id}', [PedidosController::class, 'pedidosPorCliente']);
 
@@ -106,3 +115,22 @@ Route::apiResource('qarticulo_imagen', q_articulo_imagen_Controller::class);
 
 //RUTAS DE LA TABLA QARTICULO_PRECIO
 Route::apiResource('qarticulo_precio', q_articulo__precio_Controller::class);
+
+//RUTAS DE LA TABLA QANET_REPRESENTANTES
+Route::apiResource('qanet_representante', qanet_representante_Controller::class);
+//RUTAS DE LA TABLA QANET_PEDIDOS
+Route::apiResource('qanet_pedidos', qanet_pedidos_Controller::class);
+//RUTAS DE LA TABLA QANET_PEDIDOS_LINEAS
+Route::apiResource('qanet_pedidos_lineas', qanet_pedidos__lineas_Controller::class);
+//RUTAS DE LA TABLA QANET_PARAMETRO2
+Route::apiResource('qanet_parametro2',qanet_parametro2_Controller::class);
+
+//RUTAS DE LA TABLA QANET_PALET
+Route::apiResource('qanet_palet', qanet_palet_Controller::class);
+
+//RUTAS DE LA TABLA QANET_OFERTAS_EXPRESS
+Route::apiResource('qanet_oferta_express', qanet_oferta_express_Controller::class);
+//RUTAS DE LA TABLA QANET_LISTAPRECIOS
+Route::apiResource('qanet_listaprecios', qanet_listaprecios_Controller::class);
+//RUTAS DE LA TABLA FAMILIAQTPV
+Route::apiResource('qanet_familiaqtpv', qanet_familiaqtpv_Controller::class);
