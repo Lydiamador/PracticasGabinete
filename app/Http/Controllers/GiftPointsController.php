@@ -22,6 +22,14 @@ class GiftPointsController extends Controller
         return response()->json($gift);
     }
 
+    public function showByCodigo($codigo){
+        $gift = GiftPoints::find($codigo);
+        if (!$gift) {
+            return response()->json(['message' => 'GiftPoint no encontrado'], 404);
+        }
+        return response()->json($gift);
+    }
+
     // CREAR UN GIFTPOINT
     public function store(Request $request){
         $data= $request = validate([

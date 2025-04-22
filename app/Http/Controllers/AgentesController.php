@@ -12,10 +12,16 @@ class AgentesController extends Controller
         return Agentes::all();
     }
 
-    // DEVOLVEMOS UN AGENTE POR ID
-    public function show($id){
-        return Agentes::findOrFail($id);
+    // DEVOLVEMOS UN AGENTE POR NOMBRE
+    public function showByName($name) {
+        return Agentes::where('name', $name)->firstOrFail();
     }
+    
+     // DEVOLVEMOS UN AGENTE POR EMAIL
+    public function showByEmail($email) {
+        return Agentes::where('email', $email)->firstOrFail();
+    }
+    
 
     // CREAMOS UN NUEVO AGENTE
     public function store(Request $request){

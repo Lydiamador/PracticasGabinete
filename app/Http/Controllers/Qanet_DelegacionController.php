@@ -15,14 +15,19 @@ class Qanet_DelegacionController extends Controller
     }
 
     // MOSTRAR UNA DELEGACIÓN
-    public function show($id)
+    public function show($delcod)
     {
-        $delegacion = Qanet_Delegacion::find($id);
+        $delegacion = Qanet_Delegacion::find($delcod);
         if (!$delegacion) {
             return response()->json(['message' => 'Delegación no encontrada'], 404);
         }
         return response()->json($delegacion);
     }
+    public function showByNombre($delnom){
+        return Qanet_Delegacion::findOrFail($delnom);
+
+    }
+    
 
     // CREAR UNA DELEGACIÓN
     public function store(Request $request)

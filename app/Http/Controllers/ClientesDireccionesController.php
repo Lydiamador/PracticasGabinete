@@ -21,6 +21,11 @@ class ClientesDireccionesController extends Controller
         return response()->json($direccion);
     }
 
+    public function showByTelefono($dirtfno1){
+        return ClientesDirecciones::findOrFail($dirtfno1);
+
+    }
+
     // CREAR UNA DIRECCION DE UN CLIENTE
     public function store(Request $request){
         $data= $request = validate([

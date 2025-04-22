@@ -26,6 +26,12 @@ class CatCategoriasController extends Controller
         return response()->json($categoria);
     }
 
+    public function showbyNombre($nombre_es)
+    {
+        return Cat_Categorias::findOrFail($nombre_es);
+
+    }
+
     // CREAR UNA CATEGORÍA
     public function store(Request $request)
     {

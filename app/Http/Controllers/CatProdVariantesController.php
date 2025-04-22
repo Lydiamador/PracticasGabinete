@@ -16,8 +16,14 @@ class CatProdVariantesController extends Controller
 
     // MOSTRAR UNA VARIANTE DEL PRODUCTO
     public function show($id){
-        $variantes = Cat_Productos_Variantes::where('id', $id)->get();
-        return response()->json($variantes);
+        return Cat_Productos_Variantes::findOrFail($id);
+
+    }
+
+    public function showbyProducto($id_producto)
+    {
+        return Cat_Productos_Variantes::findOrFail($id_producto);
+
     }
 
     // CREAR UNA VARIANTE DE PRODUCTO
