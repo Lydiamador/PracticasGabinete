@@ -24,6 +24,10 @@ class QanetCliente_AgendaController extends Controller
         return response()->json($agenda);
     }
 
+    public function showByCodigoCliente($ageclicod){
+        return Qanet_ClienteAgenda::findOrFail($ageclicod);
+
+    }
     //CREAR AGENDA
     public function store(Request $request)
     {

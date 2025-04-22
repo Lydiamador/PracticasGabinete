@@ -13,8 +13,8 @@ class CartController extends Controller
     }
 
     // DEVOLVEMOS UN PRODUCTO DEL CARRITO
-    public function show($id){
-        return Cart::findOrFail($id);
+    public function show($cartcod){
+        return Cart::findOrFail($cartcod);
     }
 
     // CREAMOS UN NUEVO PRODUCTO DEL CARRITO

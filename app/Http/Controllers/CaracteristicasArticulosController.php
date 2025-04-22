@@ -16,6 +16,11 @@ class CaracteristicasArticulosController extends Controller
         return Caracteristicas_Articulos::findOrFail($id);
     }
 
+    // DEVOLVEMOS UN ARTICULO POR SU CODIGO DE ARTICULO
+    public function showByCodArticulo($articulo_artcod){
+        return Caracteristicas_Articulos::findOrFail($articulo_artcod);
+    }
+
     // CREAMOS UNA CARACTERISTICA DE UN ARTICULOS
     public function store(Request $request){
         $data= $request = validate([

@@ -23,6 +23,11 @@ class QanetCajaController extends Controller
         return response()->json($caja);
     }
 
+    public function showByCodigoCaj($cajcod){
+        return Qanet_Caja::findOrFail($cajcod);
+
+    }
+
     // CREAR UN CAJA
     public function store(Request $request)
     {

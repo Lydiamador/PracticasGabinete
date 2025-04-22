@@ -23,6 +23,10 @@ class QanetClienteController extends Controller
         }
         return response()->json($qanet_cliente);
     }
+    public function showByCodigoCliente($clicod){
+        return Qanet_Cliente::findOrFail($clicod);
+
+    }
 
     // CREAR UN CLIENTE QANET
     public function store(Request $request)

@@ -17,6 +17,10 @@ class Pedidos_LineasController extends Controller
         return Pedidos_Lineas::find($id);
     }
 
+    public function showByPedido($pedido_id){
+        return Pedidos_Lineas::find($pedido_id);
+    }
+
     // Crear una nueva linea de pedido
     public function store(Request $request){
         //validamos los datos a introducir del pedido con los campos de la tabla
