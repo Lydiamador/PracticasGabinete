@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -101,20 +101,5 @@ class q_articulo_Controller extends Controller
         $art = q_articulo::findOrFail($id);
         $art->delete();
         return response()->json(['mensaje'=>'El articulo ha sicho eliminado.']);
-    }
-
-    public function search(Request $request){
-        $artnom = $request->query('artnom');
-        if (!$artnom) {
-            return response()->json(['mensaje' => 'Debe proporcionar el nombre del artículo para buscar.'], 400);
-        }
-
-        $results = q_articulo::where('artnom', 'like', "%{$artnom}%")->get();
-
-        if ($results->isEmpty()) {
-            return response()->json(['mensaje' => 'No se encontró ninguna coincidencia para el usuario especificado.'], 404);
-        }
-
-        return response()->json($results);
     }
 }

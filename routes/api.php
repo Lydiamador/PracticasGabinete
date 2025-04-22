@@ -1,31 +1,4 @@
 <?php
-use Illuminate\Http\Request;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\User_support_details_Controller;
-use App\Http\Controllers\User_support_Controller;
-use App\Http\Controllers\User_log_Controller;
-use App\Http\Controllers\User_qanet_Controller;
-use App\Http\Controllers\User_gif_points_Controller;
-use App\Http\Controllers\q_tarifa_Controller;
-use App\Http\Controllers\q_ofertac_Controller;
-use App\Http\Controllers\q_marca_Controller;
-use App\Http\Controllers\q_etiqueta_Controller;
-use App\Http\Controllers\q_documento_Controller;
-use App\Http\Controllers\q_documento_fichero_Controller;
-use App\Http\Controllers\q_categoria_Controller;
-use App\Http\Controllers\q_articulo_Controller;
-use App\Http\Controllers\q_articulo_barra_Controller;
-use App\Http\Controllers\q_articulo_etiqueta_Controller;
-use App\Http\Controllers\q_articulo_precio_Controller;
-use App\Http\Controllers\q_articulo_imagen_Controller;
-use App\Http\Controllers\qanet_representante_Controller;
-use App\Http\Controllers\qanet_pedidos_Controller;
-use App\Http\Controllers\qanet_pedidos_lineas_Controller;
-use App\Http\Controllers\qanet_parametro2_Controller;
-use App\Http\Controllers\qanet_palet_Controller;
-use App\Http\Controllers\qanet_oferta_express_Controller;
-use App\Http\Controllers\qanet_listaprecios_Controller;
-use App\Http\Controllers\qanet_familiaqtpv_Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\Pedidos_LineasController;
@@ -54,6 +27,32 @@ use App\Http\Controllers\Qanet_ClienteGrupoController;
 use App\Http\Controllers\Qanet_DelegacionController;
 use App\Http\Controllers\Qanet_EstadisticaController;
 use App\Http\Controllers\Qanet_ExtraController;
+use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\User_support_details_Controller;
+use App\Http\Controllers\User_support_Controller;
+use App\Http\Controllers\User_log_Controller;
+use App\Http\Controllers\User_qanet_Controller;
+use App\Http\Controllers\User_gif_points_Controller;
+use App\Http\Controllers\q_tarifa_Controller;
+use App\Http\Controllers\q_marca_Controller;
+use App\Http\Controllers\q_etiqueta_Controller;
+use App\Http\Controllers\q_documento_Controller;
+use App\Http\Controllers\q_documento_fichero_Controller;
+use App\Http\Controllers\q_categoria_Controller;
+use App\Http\Controllers\q_articulo_Controller;
+use App\Http\Controllers\q_articulo_barra_Controller;
+use App\Http\Controllers\q_articulo_etiqueta_Controller;
+use App\Http\Controllers\q_articulo_precio_Controller;
+use App\Http\Controllers\q_articulo_imagen_Controller;
+use App\Http\Controllers\qanet_representante_Controller;
+use App\Http\Controllers\qanet_pedidos_Controller;
+use App\Http\Controllers\qanet_pedidos_lineas_Controller;
+use App\Http\Controllers\qanet_parametro2_Controller;
+use App\Http\Controllers\qanet_palet_Controller;
+use App\Http\Controllers\qanet_oferta_express_Controller;
+use App\Http\Controllers\qanet_listaprecios_Controller;
+use App\Http\Controllers\qanet_familiaqtpv_Controller;
 
 // RUTAS PARA EL FUNCIONAMIENTO DE PEDIDOS
 // MOSTRAR TODOS LOS PEDIDOS
@@ -389,8 +388,6 @@ Route::put('/Qanet_Extra/{id}', [Qanet_ExtraController::class, 'update']);
 // ELIMINAR UN EXTRA    
 Route::delete('/Qanet_Extra/{id}', [Qanet_ExtraController::class, 'destroy']);
 
-
-
 // RUTAS PARA EL FUNCIONAMIENTO DE PEDIDOS
 // MOSTRAR TODOS LOS PEDIDOS
 Route::get('/pedidos', [PedidosController::class, 'index']);
@@ -425,151 +422,59 @@ Route::get('/lineas/producto/{producto_id}', [Pedidos_LineasController::class, '
 Route::get('/lineas/pedido/{id}', [Pedidos_LineasController::class, 'lineasPedido']);
 
 //RUTAS DE LA TABLA USERS
-//Muestra todas las líneas de la tabla users.
-Route::get('/users', [UserController::class, 'index'] );
-//Creas un nuevo cliente.
-Route::post('/users', [UserController::class, 'store'] );
-//Modifica a un cliente en especifico.
-Route::put('/users/{name}', [UserController::class, 'update'] );
-//Elimina a un cliente de la tabla users en especifico
-Route::delete('/users/{name}', [UserController::class, 'destroy'] );
-//Busca a un cliente por nombre o usuclicod en la tabla users
-Route::get('/users/search', [UserController::class, 'search'] );
+Route::apiResource('users', UserController::class);
 
 //RUTAS DE LA TABLA USERS_GIF_POINTS
-Route::get('/users_gif_points', [User_gif_points_Controller::class, 'index']);
-Route::post('/users_gif_points', [User_gif_points_Controller::class, 'store']);
-Route::put('/users_gif_points/{usuclicod}', [User_gif_points_Controller::class, 'update']);
-Route::delete('/users_gif_points/{usuclicod}', [User_gif_points_Controller::class, 'destroy']);
-Route::get('users_gif_points/search', [User_gif_points_Controller::class, 'search']);
-
+Route::apiResource('users_gif_points', User_gif_points_Controller::class);
 
 //RUTAS DE LA TABLA USERS_LOG
-Route::get('/users_log', [User_log_Controller::class, 'index']);
-Route::post('/users_log',[User_log_Controller::class, 'store']);
-Route::put('/users_log/{usuclicod}', [User_log_Controller::class, 'update']);
-Route::delete('/users_log/{usuclicod',[User_log_Controller::class, 'destroy']);
-Route::get('/users_log/search', [User_log_Controller::class, 'search']);
+Route::apiResource('users_log', User_log_Controller::class);
 
 //RUTA DE LA TABAL USERS_QANET
-Route::get('/users_qanet', [User_qanet_Controller::class, 'index']);
-Route::post('/users_qanet',  [User_qanet_Controller::class, 'store']);
-Route::put('/users_qanet/{ususclicod}', [User_qanet_Controller::class, 'update']);
-Route::delete('/users_qanet/{usuclicod}', [User_qanet_Controller::class,'destroy']);
-Route::get('/users_qanet/search', [User_qanet_Controller::class, 'search']);
+Route::apiResource('users_qanet', User_qanet_Controller::class);
 
 //RUTAS DE LA TABLA USERS_SUPPORT
-Route::get('/users_support', [User_support_Controller::class, 'index']);
-Route::post('/users_support', [User_support_Controller::class, 'store']);
-Route::put('/users_support', [User_support_Controller::class, 'update']);
-Route::delete('/users_support', [User_support_Controller::class, 'destroy']);
-Route::get('/users_support/search',[User_support_Controller::class, 'search']);
-Route::get('/users_support/searchByEmpresaEstadoPendientes',[User_support_Controller::class, 'searchByEmpresaEstadoPendientes']);
-Route::get('/users_support/searchByEmpresaEstadoRevision',[User_support_Controller::class, 'searchByEmpresaEstadoRevision']);
-Route::get('/users_support/searchByEmpresaEstadoAtendido',[User_support_Controller::class, 'searchByEmpresaEstadoAtendido']);
-
+Route::apiResource('users_support', User_support_Controller::class);
 
 //RUTAS DE LA TABLA USERS_SUPPORT_DETAILS
-Route::get('/users_support_details', [User_support_details_Controller::class, 'index']);
-Route::post('/users_support_details',[User_support_details_Controller::class, 'store']);
-Route::put('/users_support_details', [User_support_details_Controller::class, 'update']);
-Route::delete('/users_support_details', [User_support_details_Controller::class, 'destroy']);
-Route::get('/users_support_details/search', [User_support_details_Controller::class , 'search']);
+Route::apiResource('users_support_details', User_support_details_Controller::class);
 
 //RUTAS DE LA TABLA QTARIFA
-Route::get('/qtarifa', [q_tarifa_Controller::class, 'index']);
-Route::post('/qtarifa', [q_tarifa_Controller::class, 'strore']);
-Route::put('/qtarifa/{tarnom}', [q_tarifa_Controller::class, 'update']);
-Route::delete('/qtaifa/{tarnom}', [q_tarifa_Controller::class, 'destroy']);
-Route::get('/qtarifa/search', [q_tarifa_Controller::class, 'search']);
+Route::apiResource('qtarifa', q_tarifa_Controller::class);
 
 //RUTAS DE LA TABLA QOFERTAC
-Route::get('/qofertac', [q_ofertac_Controller::class, 'index']);
-Route::post('/qofertac', [q_ofertac_Controller::class, 'store']);
-Route::put('/qofertac/{ofccod}', [q_ofertac_Controller::class, 'update']);
-Route::delete('/qofertac/{ofccod}',[q_ofertac_Controller::class, 'destroy']);
-Route::get('/qofertac/search', [q_ofertac_Controller::class,'search']);
+Route::apiResource('qofertac', q_ofertac_Controller::class);
 
 //RUTAS DE LA TABLA QMARCA
-Route::get('/qmarca',[q_marca_Controller::class, 'index']);
-Route::post('/qmarca',[q_marca_Controller::class, 'store']);
-Route::put('/qmarca/{name}', [q_marca_Controller::class, 'update']);
-Route::delete('/qmarca/{name}', [q_marca_Controller::class, 'destroy']);
-Route::get('/qmarca/search', [q_marca_Controller::class , 'search']);
+Route::apiResource('qmarca', q_marca_Controller::class);
 
 //RUTAS DE LA TABLA QETIQUETA
-Route::get('/qetiqueta', [q_etiqueta_Controller::class, 'index']);
-Route::post('/qetiqueta', [q_etiqueta_Controller::class, 'strore']);
-Route::put('/qetiqueta/{tagnom}', [q_etiqueta_Controller::class, 'update']);
-Route::delete('/qetiqueta/{tagnom}', [q_etiqueta_Controller::class, 'destroy']);
-Route::get('/qetiqueta/search', [q_etiqueta_Controller::class, 'search']);
+Route::apiResource('qetiqueta', q_etiqueta_Controller::class);
 
 //RUTAS DE LA TABLA QDOCUMENTO_FICHERO
-Route::get('/qdocumento_fichero', [q_documento_fichero_Controller::class, 'index']);
-Route::post('/qdocumento_fichero', [q_documento_fichero_Controller::class, 'strore']);
-Route::put('/qdocumento_fichero/{qdocumento_id}', [q_documento_fichero_Controller::class, 'update']);
-Route::delete('/qdocumento_fichero/{qdocumento_id}', [q_documento_fichero_Controller::class, 'destroy']);
-Route::get('/qdocumento_fichero/search', [q_documento_fichero_Controller::class, 'search']);
-
+Route::apiResource('qdocumento_fichero', q_documento_fichero_Controller::class);
 
 //RUTAS DE LA TABLA QDOCUMENTO
-Route::get('/qdocumento', [q_documento_Controller::class, 'index']);
-Route::post('/qdocumento', [q_documento_fichero_Controller::class, 'strore']);
-Route::put('/qdocumento/{docnum}', [q_documento_fichero_Controller::class, 'update']);
-Route::delete('/qdocumento/{docnum}', [q_documento_fichero_Controller::class, 'destroy']);
-Route::get('/qdocumento/search', [q_documento_fichero_Controller::class, 'search']);
+Route::apiResource('qdocumento', q_documento_Controller::class);
 
 //RUTASDE LA TABLA QCATEGORIA
-Route::get('/qcategoria', [q_categoria_Controller::class, 'index']);
-Route::post('/qcategoria', [q_categoria_Controller::class, 'store']);
-Route::put('/qcategoria/{catnom}', [q_categoria_Controller::class, 'update']);
-Route::delete('/qcategoria/{catnom}', [q_categoria_Controller::class, 'destroy']);
-Route::get('/qcategoria/search', [q_categoria_Controller::class, 'search']);
+Route::apiResource('qcategoria', q_categoria_Controller::class);
 
 //RUTAS DE LA TABLA QARTICULO
-Route::get('/qarticulo', [q_articulo_Controller::class, 'index']);
-Route::post('/qarticulo', [q_articulo_Controller::class, 'store']);
-Route::put('/qarticulo/{artnom}', [q_articulo_Controller::class, 'update']);
-Route::delete('/qarticulo/{artnom}', [q_articulo_Controller::class, 'destroy']);
-Route::get('/qarticulo/search', [q_articulo_Controller::class, 'search']);
-
+Route::apiResource('qarticulo', q_articulo_Controller::class);
 //RUTAS DE LA TABLA QARTICULO_BARRA
-Route::get('/qarticulo_barra', [q_articulo_barra_Controller::class, 'index']);
-Route::post('/qarticulo_barra', [q_articulo_barra_Controller::class, 'store']);
-Route::put('/qarticulo_barra/{barcod}', [q_articulo_barra_Controller::class, 'update']);
-Route::delete('/qarticulo_barra/{barcod}', [q_articulo_barra_Controller::class, 'destroy']);
-Route::get('/qarticulo_barra/search', [q_articulo_barra_Controller::class, 'search']);
-
+Route::apiResource('qarticulo_barra', q_articulo_barra_Controller::class);
 //RUTAS DE LA TABLA QARTICULO_ETIQUETA
-Route::get('/qarticulo_etiqueta', [q_articulo_etiqueta_Controller::class, 'index']);
-Route::post('/qarticulo_etiqueta', [q_articulo_etiqueta_Controller::class, 'store']);
-Route::put('/qarticulo_etiqueta/{etiartcod}', [q_articulo_etiqueta_Controller::class, 'update']);
-Route::delete('/qarticulo_etiqueta/{etiartcod}', [q_articulo_etiqueta_Controller::class, 'destroy']);
-Route::get('/qarticulo_etiqueta/search', [q_articulo_etiqueta_Controller::class, 'search']);
+Route::apiResource('qarticulo_etiqueta', q_articulo_etiqueta_Controller::class);
 
 //RUTAS DE LA TABLA QARTICULO_IMAGEN
-Route::get('/qarticulo_imagen', [q_articulo_imagen_Controller::class, 'index']);
-Route::post('/qarticulo_imagen', [q_articulo_imagen_Controller::class, 'store']);
-Route::put('/qarticulo_imagen/{imaartcod}', [q_articulo_imagen_Controller::class, 'update']);
-Route::delete('/qarticulo_imagen/{imaartcod}', [q_articulo_imagen_Controller::class, 'destroy']);
-Route::get('/qarticulo_imagen/search', [q_articulo_imagen_Controller::class, 'search']);
-
+Route::apiResource('qarticulo_imagen', q_articulo_imagen_Controller::class);
 
 //RUTAS DE LA TABLA QARTICULO_PRECIO
-Route::get('/qarticulo_precio', [q_articulo_precio_Controller::class, 'index']);
-Route::post('/qarticulo_precio', [q_articulo_precio_Controller::class, 'store']);
-Route::put('/qarticulo_precio/{preartcod}', [q_articulo_precio_Controller::class, 'update']);
-Route::delete('/qarticulo_precio/{preartcod}', [q_articulo_precio_Controller::class, 'destroy']);
-Route::get('/qarticulo_precio/search', [q_articulo_precio_Controller::class, 'search']);
-
+Route::apiResource('qarticulo_precio', q_articulo_precio_Controller::class);
 
 //RUTAS DE LA TABLA QANET_REPRESENTANTES
-Route::get('/qanet_representante', [qanet_representante_Controller::class, 'index']);
-Route::post('/qanet_representante', [qanet_representante_Controller::class, 'strore']);
-Route::put('/qanet_representante/{rprnom}', [qanet_representante_Controller::class, 'update']);
-Route::delete('/qanet_representante/{rprnom}', [qanet_representante_Controller::class, 'destroy']);
-Route::get('/qanet_representante/search', [qanet_representante_Controller::class, 'search']);
-
+Route::apiResource('qanet_representante', qanet_representante_Controller::class);
 //RUTAS DE LA TABLA QANET_PEDIDOS
 Route::apiResource('qanet_pedidos', qanet_pedidos_Controller::class);
 //RUTAS DE LA TABLA QANET_PEDIDOS_LINEAS
