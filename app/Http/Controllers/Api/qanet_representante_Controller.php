@@ -81,4 +81,20 @@ class qanet_representante_Controller extends Controller
         $repre->delete();
         return response()->json(['mensaje'=>'El representante ha sido eliminado correctamente'],200);
     }
+
+    public function search(Request $request){
+        $rprnom = $request->query('rprnom');
+
+        if(!$rprnom){
+            return response()->json(['mensaje'=>'Debe proporcionar el nombre del representante'],400);
+        }
+
+        $results = qanet_representante::where('rprnom', 'like', "%{$rprnom}%")->get();
+
+        if($results->isEmpty()){
+            return response()->json(['mensaje'=>'No se ha encontrado ninguna coincidencia con el nombre indicado.'],404);
+        }
+
+        return response()->json($results);
+    }
 }

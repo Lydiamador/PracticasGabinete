@@ -66,5 +66,21 @@ class q_etiqueta_Controller extends Controller
         return response()->json($etiqueta);
 
     }
+
+    public function search(Request $request){
+        $tagnom = $request->query('targnom');
+
+        if(!$tagnom){
+            return response()->json(['mensaje'=>'Debe proporcionar el nombre de la etiqueta que busca.'],400);
+        }
+        
+        $results = q_etiqueta::where('tagnom', 'like', "%{$tagnom}%")->get();
+
+        if($results->isEmpty()){
+            return response()->json(['mensaje'=>'No se ha encontrado ninguna coincidencia de la busqueda.'],404);
+        }
+
+        return response()->json($results);
+    }
         
 }
