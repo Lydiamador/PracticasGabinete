@@ -45,9 +45,9 @@ class q_categoria_Controller extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $catnom)
     {
-        $categoria = q_categoria::findOrFail($id);
+        $categoria = q_categoria::findOrFail($catnom);
         $data= $request->validate([
             'carcod'=> 'required|string|max:3',
             'catnom'=> 'nullable|string|max:50',
@@ -62,10 +62,25 @@ class q_categoria_Controller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $catnom)
     {
-        $categoria = q_categoria::findOrFail($id);
+        $categoria = q_categoria::findOrFail($catnom);
         $categoria->delete();
         return response()->json(['mensaje'=>'Categoria eliminada correctamente.']);
+    }
+
+    public function search(Request $request){
+        $catnom = $request->query('catnom');
+
+        if (!$catnom){
+            return response()->json(['Error'=>'Debe introducir el nombre de la categoría.'],400);
+        }
+
+        $results = q_categoria::where('catnom', 'like', "%{$catnom}%")->get();
+        if($results->isEmpty()){
+            return response()->json(['Error'=>'No se ha encontrado ninguna coincidencia con la búsqueda.'],404);
+        }
+
+        return response()->json($results);
     }
 }

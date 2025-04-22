@@ -73,6 +73,18 @@ class q_documento_fichero_Controller extends Controller
     }
 
     public function search(Request $request){
-        
+        $qdocumento_id=$request->query('qdocumento_id');
+
+        if(!$qdocumento_id){
+            return response()->json(['mensaje'=> 'Debe proporcionar el ID del documeto que busca.'],400);
+        }
+
+        $results=q_documento_fichero::where('qdocumento_id', 'like', "%{$qdocumento_id}%")->get();
+
+        if($results->isEmpty()){
+            return response()->json(['mensaje'=> 'No se ha encontrado coincidencias con la busqueda'],404);
+        }
+
+        return response()->json($results);
     }
 }
