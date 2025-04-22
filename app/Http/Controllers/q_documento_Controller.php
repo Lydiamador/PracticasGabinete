@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -56,9 +56,9 @@ class q_documento_Controller extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $docnum)
+    public function update(Request $request, string $id)
     {
-        $documento = q_documento::findOrFail($docnum);
+        $documento = q_documento::findOrFail($id);
         $data= $request->validate([
             'doctip'=> 'nullable|string|max:2',
             'docser'=> 'nullable|string|max:5',
@@ -86,30 +86,10 @@ class q_documento_Controller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $docnum)
+    public function destroy(string $id)
     {
-        $doc = q_documento::findOrFail($docnum);
+        $doc = q_documento::findOrFail($id);
         $doc->delete();
         return response()->json(['mensaje'=>'Documento eliminado correctamente.']);
-    }
-
-    public function search(Request $request){
-        $docclicod=$request->query('docclicod');
-        $docnum=$request->query('docnum');
-
-        if($docclicod && $docnum || !$docclicod && !$docnum){
-            return response()->json(['error' => 'Debes proporcionar solo uno de los parámetros: docclicod o docnum'], 400);
-        }
-        
-        if($docclicod){
-            $doc= q_documento::where('docclicod', 'like', "%{$docclicod}%")->get();
-        }else{
-            $doc= q_documento::where('docnum', 'like', "%{$docnum}%")->get();
-        }
-
-        if($doc->isEmpty()){
-            return reponse()->json(['mensaje'=>'No se ha encontrado ninguna coincidencia con la búsqueda.'],404);
-        }
-        return response()->json($doc);
     }
 }

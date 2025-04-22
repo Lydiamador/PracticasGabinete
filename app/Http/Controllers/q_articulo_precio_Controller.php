@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class q_articulo_precio_Controller extends Controller
      */
     public function index()
     {
-        return response()->json(q_articulo_precio::all())       ;
+        return q_articulo_precio::all();
     }
 
     /**
@@ -67,18 +67,5 @@ class q_articulo_precio_Controller extends Controller
         $preart = q_articulo_precio::findOrfail($id);
         $preart->delete();
         return response()->json(['mensaje'=>'El precio del articulo ha sido eliminado.']);
-    }
-
-    public function search(Request $request){
-        $preartcod= $request->query('preartcod');
-
-        if(!$preartcod){
-            return response()->json(['Mensaje'=>'Debe proposrcionar el código del artículo.'],400);
-        }
-        $results= q_articulo_precio::where('preartcod', 'like', "%{$preartcod}%")->get();
-        if($results->isEmpty()){
-            return response()->json(['mensaje'=>'No se ha encontrado ninguna coincidencia con la búsqueda.'],404);
-        }
-        return response()->json($results);
     }
 }

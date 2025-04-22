@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -102,10 +102,7 @@ class q_articulo_Controller extends Controller
         $art->delete();
         return response()->json(['mensaje'=>'El articulo ha sicho eliminado.']);
     }
-    public function showByCodigo($artcod){
-        return q_articulo::findOrFail($artcod);
 
-    }
     public function search(Request $request){
         $artnom = $request->query('artnom');
         if (!$artnom) {

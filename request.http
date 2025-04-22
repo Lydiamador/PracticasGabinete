@@ -11,3 +11,26 @@ GET http://localhost:8000/lineas
 ### MOSTRAR UNA LINEA DE PEDIDO EN PARTICULAR
 GET http://localhost:8000/lineas/1
 
+### MOSTRAR TODAS LAS CARACTERISTICAS DE ARTICULOS
+GET http://localhost:8000/caracteristicas_articulos
+
+### MOSTRAR UN ARTICULO EN PARTICULAR
+GET http://localhost:8000/caracteristicas_articulos/1
+
+### MOSTRAR TODOS LOS PRODUCTOS DEL CARRITO
+GET http://localhost:8000/cart
+
+### MOSTRAR UN PRODUCTO DEL CARRITO
+GET http://localhost:8000/cart/1
+
+### MOSTRAR TODOS LOS AGENTES
+GET http://localhost:8000/agentes
+
+### MOSTRAR UN AGENTE EN PARTICULAR
+GET http://localhost:8000/agentes/1
+
+### MOSTRAR TODOS LOS CATEGORIAS DEL CARRO
+GET http://localhost:8000/cat_categorias
+
+### MOSTRAR UNA CATEGORÍA SOLA DEL CARRO
+GET http://localhost:8000/cat_categorias/1

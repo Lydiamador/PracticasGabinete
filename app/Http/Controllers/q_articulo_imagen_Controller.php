@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -43,9 +43,9 @@ class q_articulo_imagen_Controller extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $imaartcod)
+    public function update(Request $request, string $id)
     {
-        $imaart=q_articulo_imagen::findOrFail($imaartcod);
+        $imaart=q_articulo_imagen::findOrFail($id);
 
         $data=$request->validate([
             'imaartcod' => 'required|string|max:10',
@@ -61,27 +61,10 @@ class q_articulo_imagen_Controller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $imaartcod)
+    public function destroy(string $id)
     {
-        $imaart = q_articulo_imagen::findOrFail($imaartcod);
+        $imaart = q_articulo_imagen::findOrFail($id);
         $imaart->delete();
         return response()->json(['mensaje'=>'Imagen de articulo eliminada.']);
-    }
-
-    public function search(Request $request){
-
-        $imaartcod = $request->query('imaartcod');
-
-        if(!$imaartcod){
-            return response()->json(['mensaje'=>'Debe proporcionar el código del articulo.'],400);
-        }
-
-        $results= q_articulo_imagen::where('imaartcod', 'like', "%{$imaartcod}%")->get();
-
-        if($results->isEmpty()){
-            return response()->json(['mensaje'=>'No se ha encontrado ninguna coincidencia con la busqueda.'],404);
-        }
-
-        return response()->json($results);
     }
 }
