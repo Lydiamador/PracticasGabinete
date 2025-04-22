@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllerss;
 
 use App\Http\Controllers\Controller;
 use App\Models\User_support;

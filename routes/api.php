@@ -557,7 +557,7 @@ Route::get('/qarticulo_imagen/search', [q_articulo_imagen_Controller::class, 'se
 
 //RUTAS DE LA TABLA QARTICULO_PRECIO
 Route::get('/qarticulo_precio', [q_articulo_precio_Controller::class, 'index']);
-Route::pots('/qarticulo_precio', [q_articulo_precio_Controller::class, 'store']);
+Route::post('/qarticulo_precio', [q_articulo_precio_Controller::class, 'store']);
 Route::put('/qarticulo_precio/{preartcod}', [q_articulo_precio_Controller::class, 'update']);
 Route::delete('/qarticulo_precio/{preartcod}', [q_articulo_precio_Controller::class, 'destroy']);
 Route::get('/qarticulo_precio/search', [q_articulo_precio_Controller::class, 'search']);
