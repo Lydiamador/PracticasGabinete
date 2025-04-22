@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\Pedidos_LineasController;
