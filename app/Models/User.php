@@ -12,34 +12,20 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    //Indicamod el nombre de la tabla que se va a usar
-    protected $table='users';
-
-    //Especificamos los campos que la componen
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
     protected $fillable = [
         'name',
         'email',
-        'email_verified_at',
         'password',
-        'usugrucod',
-        'usuclicod',
-        'usucencod',
-        'remember_token',
-        'usutarcod',
-        'usuofecod',
-        'usudocpen',
-        'usudes1',
-        'usunuevo',
-        'usurprcod',
-        'usuivacod',
-        'usudistribuidor',
-        'usudiareparto',
-        'usunif'
     ];
 
     /**
-     * Atributos que deben permanecer ocultos cuando el modelo se convierte a JSON.
-     * Se usa para ocultar información sensible, como contraseñas o tokens de sesión.
+     * The attributes that should be hidden for serialization.
+     *
      * @var list<string>
      */
     protected $hidden = [
@@ -48,7 +34,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Conversión automática de tipos para ciertos campos.
+     * Get the attributes that should be cast.
      *
      * @return array<string, string>
      */
@@ -57,8 +43,6 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'created_at' => 'datetime',
-            'updated_at' => 'datetime'
         ];
     }
 }
