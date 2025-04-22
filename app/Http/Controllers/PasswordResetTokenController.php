@@ -22,6 +22,8 @@ class PasswordResetTokenController extends Controller
         return response()->json($token);
     }
 
+   
+
     // CREAR UN TOKEN DE RECUPERACION DE CONTRASEÑA
     public function store(Request $request){
         $data= $request = validate([

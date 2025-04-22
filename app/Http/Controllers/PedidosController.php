@@ -18,6 +18,10 @@ class PedidosController extends Controller
     {
         return Pedidos::findOrFail($id);
     }
+    public function showByCliente($cliente_id){
+        return Pedidos::findOrFail($cliente_id);
+
+    }
 
     // Crear un nuevo pedido
     public function store(Request $request)

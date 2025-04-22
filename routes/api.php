@@ -60,6 +60,7 @@ use App\Http\Controllers\Qanet_ExtraController;
 Route::get('/pedidos', [PedidosController::class, 'index']);
 // MOSTRAR UN PEDIDO EN PARTICULAR
 Route::get('/pedidos/{id}', [PedidosController::class, 'show']);
+Route::get('/pedidos/cliente/{cliente_id}', [PedidosController::class, 'showByCliente']);
 // CREAR UN NUEVO PEDIDO
 Route::post('/pedidos', [PedidosController::class, 'store']);
 // EDITAR UN PEDIDO EXISTENTE
@@ -74,6 +75,7 @@ Route::get('/pedidos/cliente/{cliente_id}', [PedidosController::class, 'pedidosP
 Route::get('/lineas', [Pedidos_LineasController::class, 'index']);
 // MOSTRAR UNA LÍNEA DE PEDIDO EN PARTICULAR
 Route::get('/lineas/{id}', [Pedidos_LineasController::class, 'show']);
+Route::get('/lineas/{pedido_id}', [Pedidos_LineasController::class, 'showByPedido']);
 // CREAR UNA NUEVA LÍNEA DE PEDIDO
 Route::post('/lineas', [Pedidos_LineasController::class, 'store']);
 // EDITAR UNA LÍNEA DE PEDIDO EXISTENTE
@@ -91,7 +93,8 @@ Route::get('/lineas/pedido/{id}', [Pedidos_LineasController::class, 'lineasPedid
 // MOSTRAR TODOS LOS AGENTES
 Route::get('/agentes', [AgentesController::class, 'index']);
 // MOSTRAR UN AGENTE EN PARTICULAR
-Route::get('/agentes/{id}', [AgentesController::class, 'show']);
+Route::get('/agentes/{name}', [AgentesController::class, 'showByName']);
+Route::get('/agentes/{email}', [AgentesController::class, 'showByEmail']);
 // CREAR UN NUEVO AGENTE
 Route::post('/agentes', [AgentesController::class, 'store']);
 // EDITAR UN AGENTE EXISTENTE
@@ -104,6 +107,7 @@ Route::delete('/agentes/{id}', [AgentesController::class, 'destroy']);
 Route::get('/caracteristicas_articulos', [CaracteristicasArticulosController::class, 'index']);
 // MOSTRAR UN ARTICULO EN PARTICULAR
 Route::get('/caracteristicas_articulos/{id}', [CaracteristicasArticulosController::class, 'show']);
+Route::get('/caracteristicas_articulos/{articulo_artcod}', [CaracteristicasArticulosController::class, 'showByCodArticulo']);
 // CREAR UNA CARACTERISTICA DE ARTICULO
 Route::post('/caracteristicas_articulos', [CaracteristicasArticulosController::class, 'store']);
 // EDITAR UNA CARACTERISTICA DE ARTICULO
@@ -115,7 +119,7 @@ Route::delete('/caracteristicas_articulos/{id}', [CaracteristicasArticulosContro
 // MOSTRAR TODOS LOS PRODUCTOS DEL CARRITO
 Route::get('/cart', [CartController::class, 'index']);
 // MOSTRAR UN PRODUCTO DEL CARRITO
-Route::get('/cart/{id}', [CartController::class, 'show']);
+Route::get('/cart/{cartcod}', [CartController::class, 'show']);
 // CREAR UN NUEVO PRODUCTO DEL CARRITO
 Route::post('/cart', [CartController::class, 'store']);
 // ACTUALIZAR UN PRODUCTO DEL CARRITO
@@ -128,6 +132,8 @@ Route::delete('/cart/{id}', [CartController::class, 'destroy']);
 Route::get('/cat_categorias', [CatCategoriasController::class, 'index']);
 // LISTAR UNA CATEGORÍA SOLA DEL CARRO
 Route::get('/cat_categorias/{id}', [CatCategoriasController::class, 'show']);
+Route::get('/cat_categorias/{nombre_es}', [CatCategoriasController::class, 'showbyNombre']);
+
 // CREAR UNA CATEGORÍA
 Route::post('/cat_categorias', [CatCategoriasController::class, 'store']);
 // ACTUALIZAR UNA CATEGORÍA
@@ -154,6 +160,8 @@ Route::delete('/Cat_productos/{id}', [CatProductosController::class, 'destroy'])
 Route::get('/Cat_productos_variantes/{id}', [CatProdVariantesController::class, 'index']);
 // MOSTRAR UNA VARIANTE DEL PRODUCTO
 Route::get('/Cat_productos_variantes/{id}/{variante}', [CatProdVariantesController::class, 'show']);
+Route::get('/Cat_productos_variantes/{id_producto}', [CatProdVariantesController::class, 'showbyProducto']);
+
 // CREAR UNA VARIANTE DE PRODUCTO    
 Route::post('/Cat_productos_variantes/{id}', [CatProdVariantesController::class, 'store']);
 // ACTUALIZAR UNA VARIANTE DE PRODUCTO
@@ -166,6 +174,7 @@ Route::delete('/Cat_productos_variantes/{id}/{variante}', [CatProdVariantesContr
 Route::get('/Cat_tarifas', [CatTarifaController::class, 'index']);
 // MOSTRAR UNA TARIFA
 Route::get('/Cat_tarifas/{id}', [CatTarifaController::class, 'show']);
+Route::get('/Cat_tarifas/{Nombre}', [CatTarifaController::class, 'showByName']);
 // CREAR UNA TARIFA
 Route::post('/Cat_tarifas', [CatTarifaController::class, 'store']);
 // ACTUALIZAR UNA TARIFA
@@ -178,6 +187,7 @@ Route::delete('/Cat_tarifas/{id}', [CatTarifaController::class, 'destroy']);
 Route::get('/Clientes_direcciones', [ClientesDireccionesController::class, 'index']);
 // MOSTRAR UNA DIRECCIÓN DE CLIENTE
 Route::get('/Clientes_direcciones/{id}', [ClientesDireccionesController::class, 'show']);
+Route::get('/Clientes_direcciones/{dirtfno1}', [ClientesDireccionesController::class, 'showByTelefono']);
 // CREAR UNA DIRECCIÓN DE CLIENTE
 Route::post('/Clientes_direcciones', [ClientesDireccionesController::class, 'store']);
 // ACTUALIZAR UNA DIRECCIÓN DE CLIENTE
@@ -202,6 +212,7 @@ Route::delete('/Favoritos/{id}', [FavoritosController::class, 'destroy']);
 Route::get('/GiftPoints', [GiftPointsController::class, 'index']);
 // MOSTRAR UN GIFTPOINT
 Route::get('/GiftPoints/{id}', [GiftPointsController::class, 'show']);
+Route::get('/GiftPoints/{codigo}', [GiftPointsController::class, 'showByCodigo']);
 // CREAR UN GIFTPOINT
 Route::post('/GiftPoints', [GiftPointsController::class, 'store']);
 // ACTUALIZAR UN GIFTPOINT
@@ -286,6 +297,7 @@ Route::delete('/Qanet_Articuloqtpv/{id}', [Qanet_ArticuloqtpvController::class, 
 Route::get('/Qanet_Caja', [QanetCajaController::class, 'index']);
 // MOSTRAR UN CAJA
 Route::get('/Qanet_Caja/{id}', [QanetCajaController::class, 'show']);
+Route::get('/Qanet_Caja/{cajcod}', [QanetCajaController::class, 'showByCodigoCaj']);
 // CREAR CAJA
 Route::post('/Qanet_Caja', [QanetCajaController::class, 'store']);
 // ACTUALIZAR CAJA
@@ -298,6 +310,7 @@ Route::delete('/Qanet_Caja/{id}', [QanetCajaController::class, 'destroy']);
 Route::get('/Qanet_Cliente', [QanetClienteController::class, 'index']);
 // MOSTRAR UN CLIENTE QANET
 Route::get('/Qanet_Cliente/{id}', [QanetClienteController::class, 'show']);
+Route::get('/Qanet_Cliente/{clicod}', [QanetClienteController::class, 'showByCodigoCliente']);
 // CREAR CLIENTE QANET
 Route::post('/Qanet_Cliente', [QanetClienteController::class, 'store']);
 // ACTUALIZAR CLIENTE QANET
@@ -310,6 +323,8 @@ Route::delete('/Qanet_Cliente/{id}', [QanetClienteController::class, 'destroy'])
 Route::get('/QanetCliente_Agenda', [QanetCliente_AgendaController::class, 'index']);
 // MOSTRAR LA AGENDA DE CLIENTES QANET
 Route::get('/QanetCliente_Agenda/{id}', [QanetCliente_AgendaController::class, 'show']);
+Route::get('/QanetCliente_Agenda/{ageclicod}', [QanetCliente_AgendaController::class, 'showByCodigoCliente']);
+
 // CREAR AGENDA DE CLIENTES QANET
 Route::post('/QanetCliente_Agenda', [QanetCliente_AgendaController::class, 'store']);
 // ACTUALIZAR AGENDA DE CLIENTES QANET
@@ -357,7 +372,9 @@ Route::delete('/Qanet_Cliente_Grupo/{id}', [Qanet_ClienteGrupoController::class,
 // MOSTRAR TODOS LAS DELEGACIONES
 Route::get('/Qanet_Delegacion', [Qanet_DelegacionController::class, 'index']);
 // MOSTRAR UNA DELEGACIÓN
-Route::get('/Qanet_Delegacion/{id}', [Qanet_DelegacionController::class, 'show']);
+Route::get('/Qanet_Delegacion/{delcod}', [Qanet_DelegacionController::class, 'show']);
+Route::get('/Qanet_Delegacion/{delnom}', [Qanet_DelegacionController::class, 'showByNombre']);
+
 // CREAR UNA DELEGACIÓN
 Route::post('/Qanet_Delegacion', [Qanet_DelegacionController::class, 'store']);
 // ACTUALIZAR UNA DELEGACIÓN
@@ -381,7 +398,9 @@ Route::delete('/Qanet_Estadistica/{id}', [Qanet_EstadisticaController::class, 'd
 // MOSTRAR TODOS LOS EXTRAS
 Route::get('/Qanet_Extra', [Qanet_ExtraController::class, 'index']);
 // MOSTRAR UN EXTRA
-Route::get('/Qanet_Extra/{id}', [Qanet_ExtraController::class, 'show']);
+Route::get('/Qanet_Extra/{extcod}', [Qanet_ExtraController::class, 'show']);
+Route::get('/Qanet_Extra/{extnom}', [Qanet_ExtraController::class, 'showByNombre']);
+
 // CREAR UN EXTRA
 Route::post('/Qanet_Extra', [Qanet_ExtraController::class, 'store']);
 // ACTUALIZAR UN EXTRA

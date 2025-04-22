@@ -26,6 +26,11 @@ class CatTarifaController extends Controller
         return response()->json($tarifa);
     }
 
+    public function showByName($nombre)
+    {
+        return Cat_Tarifa::findOrFail($nombre);
+    }
+
     // CREAR UNA TARIFA
     public function store(Request $request)
     {

@@ -58,6 +58,10 @@ class q_articulo_Controller extends Controller
        $art = q_articulo::findOrFail($id);
        return response()->json($art);
     }
+    public function showByCodigo($artcod){
+        return q_articulo::findOrFail($artcod);
+
+    }
 
     /**
      * Update the specified resource in storage.

@@ -15,13 +15,17 @@ class Qanet_ExtraController extends Controller
     }
 
     // MOSTRAR UN EXTRA
-    public function show($id)
+    public function show($extcod)
     {
-        $extra = Qanet_Extra::find($id);
+        $extra = Qanet_Extra::find($extcod);
         if (!$extra) {
             return response()->json(['message' => 'Extra no encontrado'], 404);
         }
         return response()->json($extra);
+    }
+    public function showByNombre($extnom){
+        return Qanet_Extra::findOrFail($extnom);
+
     }
 
     // CREAR UN EXTRA
