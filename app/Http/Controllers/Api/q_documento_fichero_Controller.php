@@ -71,4 +71,8 @@ class q_documento_fichero_Controller extends Controller
         $doc->delete();
         return response()->json(['mensaje'=>'Documento eliminado correctamente.']);
     }
+
+    public function search(Request $request){
+        
+    }
 }

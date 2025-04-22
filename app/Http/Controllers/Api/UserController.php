@@ -23,23 +23,23 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //validamos los datos a introducir del cliente con los campos de la tabla
-        $data= $request = validate([
+        $data= $request -> validate([
             'name' => 'required|string|max:255',
             'email'=> 'required|string|max:255',
             'email_verified_at' =>'nullable|timestamp',
-            'password' => 'requiered|string|max:255',
-            'usugrucod'=> 'requiered|string|max:255',
-            'usuclicod'=>'requiered|string|max:255',
+            'password' => 'required|string|max:255',
+            'usugrucod'=> 'required|string|max:255',
+            'usuclicod'=>'required|string|max:255',
             'usucencod'=>'nullable|string|max:4',
             'remember_token'=>'nullable|string|max:100',
             'usutarcod'=>'requiered|string|max:3',
             'usuofecod'=>'nullable|string|max:10',
-            'usudocpen'=>'requiered|float',
+            'usudocpen'=>'required|float',
             'usudes1'=>'nullable|float',
             'usunuevo'=>'nullable|integer|max:11',
             'usurprcod'=>'nullable|string|max:15',
             'usuivacod'=>'nullable|string|max:3',
-            'usudistribuidor'=>'nullable|int|max:11',
+            'usudistribuidor'=>'nullable|integer|max:11',
             'usudiareparto'=>'nullable|string|max:20',
             'usunif'=>'nullable|string|max:20'
         ]);
@@ -56,41 +56,35 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $user = User::find($sid);
-        //Comporbamos que el ID existe.
-        if (!($user)){
-            abort(404,"No existe el cliente con ese ID");
-        }
-        
-        //Devolvemos el cliente al que pertenece el id
-        return $user;
+        $user = User::findOrFail($sid);
+        return response()->json($user);
         
     }
 
     /**
      * Modificamos el cliente existente con sus nuevos datos
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $name)
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($name);
 
-        $data= $request = validate([
+        $data= $request -> validate([
             'name' => 'required|string|max:255',
             'email'=> 'required|string|max:255',
             'email_verified_at' =>'nullable|timestamp',
             'password' => 'required|string|max:255',
-            'usugrucod'=> 'requiered|string|max:255',
-            'usuclicod'=>'requiered|string|max:255',
+            'usugrucod'=> 'required|string|max:255',
+            'usuclicod'=>'required|string|max:255',
             'usucencod'=>'nullable|string|max:4',
             'remember_token'=>'nullable|string|max:100',
             'usutarcod'=>'requiered|string|max:3',
             'usuofecod'=>'nullable|string|max:10',
-            'usudocpen'=>'requiered|float',
+            'usudocpen'=>'required|float',
             'usudes1'=>'nullable|float',
             'usunuevo'=>'nullable|integer|max:11',
             'usurprcod'=>'nullable|string|max:15',
             'usuivacod'=>'nullable|string|max:3',
-            'usudistribuidor'=>'nullable|int|max:11',
+            'usudistribuidor'=>'nullable|integer|max:11',
             'usudiareparto'=>'nullable|string|max:20',
             'usunif'=>'nullable|string|max:20'
         ]); 
@@ -100,15 +94,40 @@ class UserController extends Controller
     }
 
     /**
-     * Eliminamos el usuario especifico seleccionado por el id.
+     * Eliminamos el usuario especifico seleccionado por el nombre.
      */
-    public function destroy(string $id)
+    public function destroy(string $name)
     {
-        //Buscamos en la tabla User el id
-        $user = User::findOrFail($id);
+        //Buscamos en la tabla User el nombre
+        $user = User::findOrFail($name);
         //Se borrar dicho usuario
-        $user = delete();
+        $user -> delete();
         //Devolvemos un mensaje de informacón 
         return response()->json(['mensaje' => 'Cliente eliminado correctamente.']);
     }
+
+    public function search(Request $request)
+    {
+        $name = $request->query('name');
+        $usuclicod = $request->query('usuclicod');
+
+        if (($name && $usuclicod) || (!$name && !$usuclicod)) {
+            return response()->json([
+                'error' => 'Debes proporcionar solo uno de los parámetros: name o usuclicod'
+            ], 400);
+        }
+
+        if ($name) {
+            $users = User::where('name', 'like', "%{$name}%")->get();
+        } else {
+            $users = User::where('usuclicod', 'like', "%{$usuclicod}%")->get();
+        }
+
+        if ($users->isEmpty()) {
+            return response()->json(['mensaje' => 'No se encontraron usuarios.'], 404);
+        }
+
+        return response()->json($users);
+    }
+
 }

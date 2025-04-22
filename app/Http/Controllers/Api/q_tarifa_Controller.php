@@ -64,4 +64,20 @@ class q_tarifa_Controller extends Controller
         $tarifa->delete();
         return response()->json(['mensaje'=>'La tarifa ha sido eliminada correctamente.']);
     }
+
+    public function search(Request $request){
+        $tarnom = $request->query('tarnom');
+
+        if(!$tarnom){
+            return response()->json(['mensaje'=>'Debe proporcionar el nombred de la tarifa que busca.'],400);
+        }
+
+        $results = q_tarifa::where('tarnom','like', "%{$tarnom}%")->get();
+
+        if($results->isEmpty()){
+            return response()->json(['mensaje'=>'No se ha encontrado ninguna coincidencia con la busqueda.'],404);
+        }
+
+        return response()->json($results);
+    }
 }

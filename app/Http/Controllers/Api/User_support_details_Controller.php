@@ -70,4 +70,22 @@ class User_support_details_Controller extends Controller
         $user->delete();
         return response()-> json(['mensaje'=>'El usuario ha sido eliminado correctamente.']);
     }
+
+    public function search(Request $request)
+    {
+        $tecnico = $request->query('tecnico');
+
+        if (!$tecnico) {
+            return response()->json(['mensaje' => 'Debe proporcionar un parámetro de búsqueda.'], 400);
+        }
+
+        $users = User_support_details::where('tecnico', 'like', "%{$tecnico}%")->get();
+
+        if ($users->isEmpty()) {
+            return response()->json(['mensaje' => 'No se encontró técnico.'], 404);
+        }
+
+        return response()->json($users);
+    }
+
 }
