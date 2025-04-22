@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -41,10 +41,10 @@ class q_articulo_barra_Controller extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $barcod)
     {
         
-        $barart = q_articulo_barra::findOrFail($id);
+        $barart = q_articulo_barra::findOrFail($barcod);
 
         $data = $request->validate([
             'barartcod'=> 'required|string|max:10',
@@ -59,10 +59,22 @@ class q_articulo_barra_Controller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $barcod)
     {
-        $barart = q_articulo_barra::findOrFail($id);
+        $barart = q_articulo_barra::findOrFail($barcod);
         $barart->delete();
         return response()->json(['mensaje']);
+    }
+
+    public function search(Request $request){
+        $barcod=$request->query('barcod');
+        if(!$barcod){
+            return response()->json(['Error'=> 'Debe introducir el código de barras del artículo.'],400);
+        }
+        $results = q_articulo_barra::where('barcod', 'like', "%{$barcod}%")->get();
+        if ($results->isEmpty()){
+            return response()->json(['mensaje'=>'No se ha encontrado ninguna coincidencia con la búsqueda.'],404);
+        }
+        return response()->json($results);
     }
 }

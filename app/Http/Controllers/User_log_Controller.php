@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -47,9 +47,9 @@ class User_log_Controller extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $usuclicod)
     {
-        $user = User_log::findOrFail($id);
+        $user = User_log::findOrFail($usuclicod);
        
         $data=$request -> validate([
             'name' => 'nullable|string|max:255',
@@ -67,12 +67,36 @@ class User_log_Controller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $usuclicod)
     {
-        $user = User_log::findOrFail($id);
+        $user = User_log::findOrFail($usuclicod);
 
         $user->delete();
 
         return response()->json(['mensaje'=>'Cliente eliminado correctamente.']);
+    }
+
+    public function search(Request $request)
+    {
+        $name = $request->query('name');
+        $usuclicod = $request->query('usuclicod');
+
+        if (($name && $usuclicod) || (!$name && !$usuclicod)) {
+            return response()->json([
+                'error' => 'Debes proporcionar solo uno de los parámetros: name o usuclicod'
+            ], 400);
+        }
+
+        if ($name) {
+            $users = User_log::where('name', 'like', "%{$name}%")->get(['email','fechorentrada', 'fechorsalida']);
+        } else {
+            $users = User_log::where('usuclicod', 'like', "%{$usuclicod}%")->get(['email','fechorentrada', 'fechorsalida']);
+        }
+
+        if ($users->isEmpty()) {
+            return response()->json(['mensaje' => 'No se encontraron usuarios.'], 404);
+        }
+
+        return response()->json($users);
     }
 }

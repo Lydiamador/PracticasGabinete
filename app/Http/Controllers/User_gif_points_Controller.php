@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -79,5 +79,22 @@ class User_gif_points_Controller extends Controller
 
         $user->delete();
         return response()->json(['mensaje'=>'El susuario ha sido eliminado correctamente.']);
+    }
+
+    public function search(Request $request){
+
+        $user_id= $request->query('user_id');
+
+        if(!$user_id){
+            return response()->json(['mensaje'=>'Debe de proporcionar el id del usuario para buscar.',400]);
+        }
+
+        $results= User_gif_points::where('user_id', 'like', "%{$user_id}%")->get();
+
+        if ($results->isEmpty()){
+            return response()->json(['mensaje'=>'No se encontró ninguna coincidencia con el id indicado'], 404);
+        }
+
+        return response()->json($results);
     }
 }

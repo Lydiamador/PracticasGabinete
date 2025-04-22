@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -45,9 +45,9 @@ class User_qanet_Controller extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $usuclicod)
     {
-        $user = User_qanet::findOrFail($id);
+        $user = User_qanet::findOrFail($usuclicod);
 
         $data = $request -> validate([
             'usuid' => 'required|integer|max:11',
@@ -63,12 +63,27 @@ class User_qanet_Controller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $usuclicod)
     {
-        $user = User_qanet::findOrFail($id);
+        $user = User_qanet::findOrFail($usuclicod);
 
         $user->delete();
 
         return response()-> json($user);
+    }
+
+    public function search(Request  $request){
+        $usuclicod= $request->query('usuclicod');
+        if (!$usuclicod) {
+            return response()->json(['mensaje' => 'Debe proporcionar el código del cliente para buscar.'], 400);
+        }
+
+        $results = User_qanet::where('usuclicod', 'like', "%{$usuclicod}%")->get();
+
+        if ($results->isEmpty()) {
+            return response()->json(['mensaje' => 'No se encontró ninguna coincidencia para el usuario especificado.'], 404);
+        }
+
+        return response()->json($results);
     }
 }
