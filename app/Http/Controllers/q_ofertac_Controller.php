@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -83,4 +83,21 @@ class q_ofertac_Controller extends Controller
 
         return response()->json(['mensaje'=>'Oferta eliminada correctamente']);
     }
+
+    public function search(Request $request){
+        $ofccod=$request->query('ofccod');
+
+        if(!$ofcod){
+            return reponse()->json(['mensaje'=>'Debe proporcionar el código de la oferta que busca.'],400);
+        }
+
+        $results= q_ofertac::where('ofccod', 'like', "%{$offcod}%")->get();
+
+        if($results->isEmpty()){
+            return response()->json(['mensaje'=>'No se ha encontrado ninguna coincidencia con la busqueda realizda.'], 404);
+        }
+
+        return response()->json($results);
+    }
+    
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -40,9 +40,9 @@ class q_articulo_etiqueta_Controller extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $etiartcod)
     {
-        $etiart= q_articulo_etiqueta::findOrFail($id);
+        $etiart= q_articulo_etiqueta::findOrFail($etiartcod);
         $data=$request->validate([
             'etiartcod'=> 'nullable |string|max:10',
             'etitagcod'=> 'nullable|integer|max:11'
@@ -54,10 +54,25 @@ class q_articulo_etiqueta_Controller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $etiartcod)
     {
-        $etiart= q_articulo_etiqueta::findOrFail($id);
+        $etiart= q_articulo_etiqueta::findOrFail($etiartcod);
         $etiart->delete();
         return response()->json(['mensaje']);
+    }
+
+    public function search(Request $request){
+        $etiartcod = $request->query('etiartcod');
+        if(!$etiartcod){
+            return response()->json(['Error'=> 'Debe proporcionar el código del artículo.'],400);
+        }
+
+        $results= q_articulo_etiqueta::where('etiartcod', 'like', "%{$etiartcod}%")->get();
+
+        if($results->isEmpty()){
+            return response()->json(['mensaje'=>'No se ha encontrado ninguna coincidencia con la búsqueda.'],404);
+        }
+
+        return response()->json($results);
     }
 }
