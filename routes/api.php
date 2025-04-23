@@ -53,6 +53,7 @@ use App\Http\Controllers\qanet_palet_Controller;
 use App\Http\Controllers\qanet_oferta_express_Controller;
 use App\Http\Controllers\qanet_listaprecios_Controller;
 use App\Http\Controllers\qanet_familiaqtpv_Controller;
+use App\Http\Controllers\AuthController;
 
 // RUTAS PARA EL FUNCIONAMIENTO DE PEDIDOS
 // MOSTRAR TODOS LOS PEDIDOS
@@ -621,3 +622,14 @@ Route::apiResource('qanet_oferta_express', qanet_oferta_express_Controller::clas
 Route::apiResource('qanet_listaprecios', qanet_listaprecios_Controller::class);
 //RUTAS DE LA TABLA FAMILIAQTPV
 Route::apiResource('qanet_familiaqtpv', qanet_familiaqtpv_Controller::class);
+
+// RUTAS DEL AUTHCONTROLLER
+Route::post('/login', [AuthController::class, 'login']); // Login para obtener el token
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('/me', [AuthController::class, 'me']); // Obtener los datos del usuario
+    Route::post('/logout', [AuthController::class, 'logout']); // Logout para invalidar el token
+
+    // Otras rutas protegidas
+    // Route::get('/posts', [PostController::class, 'index']);
+});

@@ -2,18 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Los atributos que pueden ser asignados en masa.
      *
      * @var list<string>
      */
@@ -24,7 +22,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Los atributos que deberían estar ocultos para la serialización.
      *
      * @var list<string>
      */
@@ -34,7 +32,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * Los atributos que deberían ser convertidos a tipos específicos.
      *
      * @return array<string, string>
      */
@@ -45,4 +43,21 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Implementación de JWTSubject
+     */
+
+    // Este método devuelve el identificador del usuario (usualmente el ID)
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    // Este método puede incluir reclamos personalizados (como roles o permisos)
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }
+
