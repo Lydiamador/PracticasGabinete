@@ -606,6 +606,9 @@ Route::put('/qanet_representante/{rprnom}', [qanet_representante_Controller::cla
 Route::delete('/qanet_representante/{rprnom}', [qanet_representante_Controller::class, 'destroy']);
 Route::get('/qanet_representante/search', [qanet_representante_Controller::class, 'search']);
 
+
+/**Tablas vacias */
+
 //RUTAS DE LA TABLA QANET_PEDIDOS
 Route::apiResource('qanet_pedidos', qanet_pedidos_Controller::class);
 //RUTAS DE LA TABLA QANET_PEDIDOS_LINEAS
@@ -622,14 +625,3 @@ Route::apiResource('qanet_oferta_express', qanet_oferta_express_Controller::clas
 Route::apiResource('qanet_listaprecios', qanet_listaprecios_Controller::class);
 //RUTAS DE LA TABLA FAMILIAQTPV
 Route::apiResource('qanet_familiaqtpv', qanet_familiaqtpv_Controller::class);
-
-// RUTAS DEL AUTHCONTROLLER
-Route::post('/login', [AuthController::class, 'login']); // Login para obtener el token
-
-Route::middleware('auth:api')->group(function () {
-    Route::get('/me', [AuthController::class, 'me']); // Obtener los datos del usuario
-    Route::post('/logout', [AuthController::class, 'logout']); // Logout para invalidar el token
-
-    // Otras rutas protegidas
-    // Route::get('/posts', [PostController::class, 'index']);
-});
